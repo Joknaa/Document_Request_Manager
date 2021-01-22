@@ -1,14 +1,12 @@
 package ENSA.GenieLogiciel.Project.GLProject.src.Models;
 
+import java.util.HashMap;
+
 public class StudentModel {
-    private int CNE;
-    private String CIN;
-    private String firstName;
-    private String lastName;
-    private String email;
+    private final HashMap<String, String> StudentData = new HashMap<>();
 
     StudentModel(){}
-    public StudentModel(int CNE, String CIN, String fName, String lName, String email){
+    public StudentModel(String CNE, String CIN, String fName, String lName, String email){
         SetCNE(CNE);
         SetCIN(CIN);
         SetFistName(fName);
@@ -16,23 +14,25 @@ public class StudentModel {
         SetEmail(email);
     }
 
-    public void SetCNE(int cne){ this.CNE = cne;}
-    public int GetCNE(){ return this.CNE;}
+    public void SetCNE(String CNE){ this.StudentData.put("CNE", CNE);}
+    public String GetCNE(){ return this.StudentData.get("CNE");}
 
-    public void SetCIN(String CIN){ this.CIN = CIN;}
-    public String GetCIN(){ return this.CIN;}
+    public void SetCIN(String CIN){ this.StudentData.put("CIN", CIN);}
+    public String GetCIN(){ return this.StudentData.get("CIN");}
 
-    public void SetFistName(String firstName){ this.firstName = firstName;}
-    public String GetFistName(){ return this.firstName;}
+    public void SetFistName(String firstName){ this.StudentData.put("firstName", firstName);}
+    public String GetFistName(){ return this.StudentData.get("firstName");}
 
-    public void SetLastName(String lastName){ this.lastName = lastName;}
-    public String GetLastName(){ return this.lastName;}
+    public void SetLastName(String lastName){ this.StudentData.put("lastName", lastName);}
+    public String GetLastName(){ return this.StudentData.get("lastName");}
 
-    public void SetEmail(String email){ this.email = email;}
-    public String GetEmail(){ return this.email;}
+    public void SetEmail(String email){ this.StudentData.put("email", email);}
+    public String GetEmail(){ return this.StudentData.get("email");}
+
+    public static void GetStudentDate() { }
 
     public String GetDetails(){
-        return String.format("=> Name: '%s %s' | ApogeeID: '%d' | CIN: '%s' | Email: '%s'",
+        return String.format("=> Name: '%s %s' | ApogeeID: '%s' | CIN: '%s' | Email: '%s'",
                 this.GetFistName(),
                 this.GetLastName(),
                 this.GetCNE(),
