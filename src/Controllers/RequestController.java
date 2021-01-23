@@ -5,29 +5,42 @@ import static ENSA.GenieLogiciel.Project.GLProject.src.Controllers.OutputControl
 import java.util.HashMap;
 
 public class RequestController {
+    private static final String[] requestRequirement = {"email", "CNE", "CIN", "DocumentType"};
     private static final HashMap<String, String> requestData = new HashMap<>();
     private static HashMap<String, String> studentData = new HashMap<>();
+
     public static void AddRequest() {
         DisplayMessage("Fill the form(Email, CNE, CIN, DocType): ");
         StoreRequestData();
-
-        if (DataIsCorrect()){
-            DisplayMessage("Request Approved");
-        } else{
+        String CNE = requestData.get("CNE");
+        if (UserNotFound(CNE)) {
             DisplayError("Incorrect Data");
+            return;
+        }
+
+        studentData = GetStudent_RequestRelatedData_ByCNE(CNE);
+        if (DataIsIncorrect()){
+            DisplayError("Incorrect Data");
+        } else{
+            DisplayMessage("Request Approved");
         }
     }
 
-    private static boolean DataIsCorrect() {
-        String CNE = requestData.get("CNE");
-        if (UserNotFound(CNE)) return false;
-
-        StudentController.CreateStudentModel(CNE, GetStudentByCNE(CNE));
-        return true;
-
+    private static boolean DataIsIncorrect() {
+        for (int i = 0; i < requestRequirement.length - 1; i++) { // '- 1' bcs the comparison does not include the DocumentType
+            if (RequestData_DoesNotMatch_FetchedData(requestRequirement[i])){
+                return true;
+            }
+        }
+        return false;
     }
-
+    private static boolean RequestData_DoesNotMatch_FetchedData(String key) {
+        return !requestData.get(key).equalsIgnoreCase(studentData.get(key));
+    }
     private static void StoreRequestData() {
-        requestData.replaceAll((k, v) -> InputController.Try_GetStringInput());
+        String[] input = InputController.try_GetRequestData();
+        for (int i = 0; i < requestRequirement.length; i++) {
+            requestData.put(requestRequirement[i], input[i]);
+        }
     }
 }

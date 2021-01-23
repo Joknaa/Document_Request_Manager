@@ -7,7 +7,7 @@ public class OutputController {
     public static void DisplayMainMenu(){ OutputView.DisplayMainMenu(); }
     public static void DisplayRequestSpaceMenu(){ OutputView.DisplayRequestSpaceMenu(); }
 
-    public static void DisplayError(String error) { OutputView.DisplayError(); }
+    public static void DisplayError(String error) { OutputView.DisplayError(error); }
     public static void DisplayMessage(String message) { OutputView.DisplayMessage(message); }
 
 }

@@ -27,5 +27,13 @@ public class InputController {
         return input;
     }
 
-    public static void ClearInputBuffer(){ InputView.ClearInputBuffer(); }
+    public static String[] try_GetRequestData(){
+        return new String[] {
+                Try_GetStringInput(),
+                Try_GetStringInput(),
+                Try_GetStringInput(),
+                Try_GetStringInput()};
+    }
+
+    private static void ClearInputBuffer(){ InputView.ClearInputBuffer(); }
 }

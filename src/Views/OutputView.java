@@ -21,6 +21,6 @@ public class OutputView {
         System.out.print("#-> Option : ");
     }
 
-    public static void DisplayError() { System.out.print("Error PopUp goes here."); }
+    public static void DisplayError(String error) { System.out.print(error); }
     public static void DisplayMessage(String message) { System.out.print(message); }
 }
