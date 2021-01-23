@@ -5,9 +5,7 @@ public class SchoolCertificateModel implements IDocumentModel{
     private static final String Type = "School Certificate";
 
     public SchoolCertificateModel(){}
-    public SchoolCertificateModel(int id){
-        SetID(id);
-    }
+    public SchoolCertificateModel(int id){ SetID(id); }
 
     public void SetID(int id) { this.id = id; }
     public int GetID() { return this.id; }
@@ -16,5 +14,7 @@ public class SchoolCertificateModel implements IDocumentModel{
     public String GetType() { return Type; }
 
     @Override
-    public String GetDetails() { return String.format("=> DocumentID: '%d' | DocumentType: '%s'", GetID(), GetType()); }
+    public String GetDetails() {
+        return String.format("=> DocumentID: '%d' | DocumentType: '%s'", GetID(), GetType());
+    }
 }

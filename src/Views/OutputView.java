@@ -15,8 +15,9 @@ public class OutputView {
     static public void DisplayRequestSpaceMenu(){
         System.out.println();
         System.out.println("#####################[ RequestSpaceMenu ]#####################");
-        System.out.println("|| -----------------> 1  : Fill The Form  <---------------- ||");
-        System.out.println("|| -----------------> 0  : Exit The Menu  <---------------- ||");
+        System.out.println("|| ----------------> 1  : Fill The Form    <--------------- ||");
+        System.out.println("|| ----------------> 2  : Display Requests <--------------- ||");
+        System.out.println("|| ----------------> 0  : Exit The Menu    <--------------- ||");
         System.out.println("##############################################################");
         System.out.print("#-> Option : ");
     }

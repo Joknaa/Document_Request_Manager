@@ -18,6 +18,7 @@ public class StudentSpaceController {
     private static void ApplyOption(int option) {
         switch (option) {
             case 1 -> AddRequest();
+            case 2 -> DisplayRequests();
             case 0 -> BackToMainMenu();
         }
     }
