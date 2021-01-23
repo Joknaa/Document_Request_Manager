@@ -4,7 +4,7 @@ import static ENSA.GenieLogiciel.Project.GLProject.src.Controllers.OutputControl
 import static ENSA.GenieLogiciel.Project.GLProject.src.Controllers.InputController.*;
 import static ENSA.GenieLogiciel.Project.GLProject.src.Controllers.RequestController.*;
 
-public class RequestSpaceController {
+public class StudentSpaceController {
     private static int option = 1;
 
     public static void ManageRequests() {
@@ -17,7 +17,7 @@ public class RequestSpaceController {
 
     private static void ApplyOption(int option) {
         switch (option) {
-            case 1 -> GetRequest();
+            case 1 -> AddRequest();
             case 0 -> BackToMainMenu();
         }
     }

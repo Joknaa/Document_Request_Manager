@@ -8,4 +8,6 @@ public class InputView {
 
     public static int GetIntInput() throws InputMismatchException { return sc.nextInt(); }
     public static String GetStringInput() throws InputMismatchException { return sc.next(); }
+
+    public static void ClearInputBuffer() { sc.nextLine(); }
 }

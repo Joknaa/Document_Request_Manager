@@ -13,6 +13,13 @@ public class StudentModel {
         SetLastName(lName);
         SetEmail(email);
     }
+    public StudentModel(HashMap<String, String> studentData){
+        SetCNE(studentData.get("CNE"));
+        SetCIN(studentData.get("CIN"));
+        SetFistName(studentData.get("firstName"));
+        SetLastName(studentData.get("lastName"));
+        SetEmail(studentData.get("email"));
+    }
 
     public void SetCNE(String CNE){ this.StudentData.put("CNE", CNE);}
     public String GetCNE(){ return this.StudentData.get("CNE");}

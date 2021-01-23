@@ -1,5 +1,6 @@
 package ENSA.GenieLogiciel.Project.GLProject.src.Controllers;
 
+import static ENSA.GenieLogiciel.Project.GLProject.src.Controllers.OutputController.*;
 import ENSA.GenieLogiciel.Project.GLProject.src.Views.InputView;
 import java.util.InputMismatchException;
 
@@ -11,22 +12,20 @@ public class InputController {
             input = InputView.GetIntInput();
         } catch (InputMismatchException WrongInput){
             DisplayError("Wrong Input type ! Please Enter: int");
+            ClearInputBuffer();
         }
         return input;
     }
-
     public static String Try_GetStringInput(){
         String input = "";
         try {
             input = InputView.GetStringInput();
         } catch (InputMismatchException WrongInput){
             DisplayError("Wrong Input type ! Please Enter: String");
+            ClearInputBuffer();
         }
         return input;
     }
 
-
-    private static void DisplayError(String error) {
-        OutputController.DisplayError(error);
-    }
+    public static void ClearInputBuffer(){ InputView.ClearInputBuffer(); }
 }
