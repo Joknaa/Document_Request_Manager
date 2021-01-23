@@ -12,8 +12,8 @@ public class MainController {
     }
     private static void ApplyOption(int option) {
         switch (option) {
-            case 1 -> StudentSpaceController.ManageRequests();
-            case 2 -> AdminSpaceController.ManageRequests();
+            case 1 -> StudentSpaceController.ShowStudentSpace();
+            case 2 -> AdminSpaceController.ShowAdminSpace();
             case 0 -> ExitProgram();
         }
     }

@@ -7,12 +7,13 @@ import static ENSA.GenieLogiciel.Project.GLProject.src.Controllers.RequestContro
 public class StudentSpaceController {
     private static int option = 1;
 
-    public static void ManageRequests() {
+    public static void ShowStudentSpace() {
         while (option != 0) {
-            DisplayRequestSpaceMenu();
+            DisplayStudentSpaceMenu();
             option = Try_GetIntInput();
             ApplyOption(option);
         }
+        option = 1;
     }
 
     private static void ApplyOption(int option) {

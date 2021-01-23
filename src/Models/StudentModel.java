@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class StudentModel {
     private final HashMap<String, String> studentData = new HashMap<>();
 
-    StudentModel(){}
+    public StudentModel(){}
     public StudentModel(String CNE, String CIN, String fName, String lName, String email){
         SetCNE(CNE);
         SetCIN(CIN);

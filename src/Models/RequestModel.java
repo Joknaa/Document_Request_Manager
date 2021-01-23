@@ -4,6 +4,7 @@ public class RequestModel {
     private String id;
     private IDocumentModel Document;
     private String requesterCNE;
+    private boolean accepted = false;
 
     public RequestModel(){}
     public RequestModel(String id, String requesterCNE, IDocumentModel neededDocument){
@@ -21,10 +22,14 @@ public class RequestModel {
     public void SetDocument(IDocumentModel neededDocument){ this.Document = neededDocument; }
     public IDocumentModel GetDocument(){ return this.Document; }
 
+    public void SetAccepted(boolean value){ this.accepted = value; }
+    public boolean IsAccepted(){ return this.accepted; }
+
     public String GetDetails(){
-        return String.format("=> RequestID: '%s' | RequestedDocument: '%s' | RequesterCNE: '%s'\n",
-                GetID(),
-                GetDocument().GetType(),
-                GetRequesterCNE());
+        return String.format("=> RequestID: '%s' | RequestedDocument: '%s' | RequesterCNE: '%s' | Accepted: '%s'\n",
+                this.GetID(),
+                this.GetDocument().GetType(),
+                this.GetRequesterCNE(),
+                this.IsAccepted());
     }
 }
