@@ -2,6 +2,7 @@ package ENSA.GenieLogiciel.Project.GLProject.src.Models;
 
 public class RequestModel {
     private String id;
+    private String email;
     private IDocumentModel Document;
     private String requesterCNE;
     private boolean accepted = false;
@@ -9,6 +10,7 @@ public class RequestModel {
     public RequestModel(){}
     public RequestModel(String id, String requesterCNE, IDocumentModel neededDocument){
         SetID(id);
+        SetEmail(email);
         SetRequesterCNE(requesterCNE);
         SetDocument(neededDocument);
     }
@@ -21,6 +23,9 @@ public class RequestModel {
 
     public void SetDocument(IDocumentModel neededDocument){ this.Document = neededDocument; }
     public IDocumentModel GetDocument(){ return this.Document; }
+
+    public void SetEmail(String email){ this.email = email;}
+    public String GetEmail(){ return this.email;}
 
     public void SetAccepted(boolean value){ this.accepted = value; }
     public boolean IsAccepted(){ return this.accepted; }

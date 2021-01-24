@@ -47,6 +47,7 @@ public class RequestController {
             return;
         }
 
+        DisplayMessage(targetRequest.GetDetails());
         ConfirmeRequest(targetRequest);
     }
 
@@ -58,6 +59,7 @@ public class RequestController {
         DisplayRequestConfirmationMenu();
         option = Try_GetIntInput();
         ApplyOption(option, targetRequest);
+        ResponseController.SendResponse(targetRequest);
     }
     private static void ApplyOption(int option, RequestModel targetRequest) {
         switch (option) {
@@ -68,11 +70,9 @@ public class RequestController {
     }
 
     private static void AcceptRequest(RequestModel targetRequest) {
-        DisplayMessage("Request Accepted");
         targetRequest.SetAccepted(true);
     }
     private static void DeclineRequest(RequestModel targetRequest) {
-        DisplayMessage("Request Declined");
         targetRequest.SetAccepted(false);
     }
     private static void BackToMainMenu() { option = 0; }
