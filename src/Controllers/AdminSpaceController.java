@@ -1,28 +1,44 @@
 package ENSA.GenieLogiciel.Project.GLProject.src.Controllers;
 
+import ENSA.GenieLogiciel.Project.GLProject.src.Models.LogStatus;
 import static ENSA.GenieLogiciel.Project.GLProject.src.Controllers.InputController.*;
 import static ENSA.GenieLogiciel.Project.GLProject.src.Controllers.OutputController.*;
 import static ENSA.GenieLogiciel.Project.GLProject.src.Controllers.RequestController.*;
 
 public class AdminSpaceController {
+    private static LogStatus adminLogStatus = LogStatus.LoggedOut;
     private static int option = 1;
 
     public static void ShowAdminSpace() {
+        Authenticate();
         while (option != 0) {
-            DisplayAdminSpaceMenu();
-            option = Try_GetIntInput();
-            ApplyOption(option);
+            switch (adminLogStatus) {
+                case LoggedIn -> {
+                    DisplayAdminSpaceMenu();
+                    option = Try_GetIntInput();
+                    ApplyOption(option);
+                }
+                case LoggedOut -> BackToMainMenu();
+            }
         }
         option = 1;
+    }
+
+    private static void Authenticate() {
+        if (adminLogStatus == LogStatus.LoggedOut){
+            adminLogStatus = AdminController.Authenticate() ? LogStatus.LoggedIn : LogStatus.LoggedOut;
+        }
     }
 
     private static void ApplyOption(int option) {
         switch (option) {
             case 1 -> ManageRequests();
             case 2 -> DisplayRequests();
+            case 3 -> Logout();
             case 0 -> BackToMainMenu();
         }
     }
 
+    private static void Logout() { adminLogStatus = LogStatus.LoggedOut; }
     private static void BackToMainMenu() { option = 0; }
 }
