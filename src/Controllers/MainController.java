@@ -17,6 +17,5 @@ public class MainController {
             case 0 -> ExitProgram();
         }
     }
-
     private static void ExitProgram(){ System.exit(0); }
 }

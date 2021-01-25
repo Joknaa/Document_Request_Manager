@@ -12,14 +12,8 @@ public class AdminSpaceController {
     public static void ShowAdminSpace() {
         Authenticate();
         while (option != 0) {
-            switch (adminLogStatus) {
-                case LoggedIn -> {
-                    DisplayAdminSpaceMenu();
-                    option = Try_GetIntInput();
-                    ApplyOption(option);
-                }
-                case LoggedOut -> BackToMainMenu();
-            }
+            if (adminLogStatus == LogStatus.LoggedIn) AccessAdminMenu();
+            else BackToMainMenu();
         }
         option = 1;
     }
@@ -30,10 +24,16 @@ public class AdminSpaceController {
         }
     }
 
+    private static void AccessAdminMenu() {
+        DisplayAdminSpaceMenu();
+        option = Try_GetIntInput();
+        ApplyOption(option);
+    }
+
     private static void ApplyOption(int option) {
         switch (option) {
-            case 1 -> ManageRequests();
-            case 2 -> DisplayRequests();
+            case 1 -> Try_ManageRequests();
+            case 2 -> Try_DisplayRequests();
             case 3 -> Logout();
             case 0 -> BackToMainMenu();
         }
