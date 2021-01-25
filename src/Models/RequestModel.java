@@ -1,30 +1,40 @@
-package ENSA.GenieLogiciel.Project.GLProject.src.Models;
+package GLProject.src.Models;
 
 public class RequestModel {
-    private int id;
-    private IDocumentModel Document = new TranscriptModel();
-    private int requesterCNE;
+    private String id;
+    private String email;
+    private IDocumentModel Document;
+    private String requesterCNE;
+    private boolean accepted = false;
 
     public RequestModel(){}
-    public RequestModel(int id, int requesterCNE, IDocumentModel neededDocument){
+    public RequestModel(String id, String requesterCNE, String email, IDocumentModel neededDocument){
         SetID(id);
+        SetEmail(email);
         SetRequesterCNE(requesterCNE);
         SetDocument(neededDocument);
     }
 
-    public void SetID(int id) { this.id = id; }
-    public int GetID() { return this.id; }
+    public void SetID(String id) { this.id = id; }
+    public String GetID() { return this.id; }
 
-    public void SetRequesterCNE(int requesterCNE) { this.requesterCNE = requesterCNE; }
-    public int GetRequesterCNE() { return this.requesterCNE; }
+    public void SetRequesterCNE(String requesterCNE) { this.requesterCNE = requesterCNE; }
+    public String GetRequesterCNE() { return this.requesterCNE; }
 
     public void SetDocument(IDocumentModel neededDocument){ this.Document = neededDocument; }
     public IDocumentModel GetDocument(){ return this.Document; }
 
+    public void SetEmail(String email){ this.email = email;}
+    public String GetEmail(){ return this.email;}
+
+    public void SetAccepted(boolean value){ this.accepted = value; }
+    public boolean IsAccepted(){ return this.accepted; }
+
     public String GetDetails(){
-        return String.format("=> RequestID: '%d' | RequestedDocument: '%s' | RequesterCNE: '%d'",
-                GetID(),
-                GetDocument().GetType(),
-                GetRequesterCNE());
+        return String.format("=> RequestID: '%s' | RequestedDocument: '%s' | RequesterCNE: '%s' | Accepted: '%s'\n",
+                this.GetID(),
+                this.GetDocument().GetType(),
+                this.GetRequesterCNE(),
+                this.IsAccepted());
     }
 }

@@ -1,12 +1,14 @@
-package ENSA.GenieLogiciel.Project.GLProject.src.Controllers;
+package GLProject.src.Controllers;
 
+import GLProject.src.Models.StudentModel;
 import java.util.HashMap;
 
 public class StudentController {
-    HashMap<String, String> studentData = new HashMap<>();
+    private static final HashMap<String, StudentModel> students = new HashMap<>();
 
-    public static void FetchStudentData(String CNE) {
-        System.out.println("Fetching student Data ");
-
+    public static void CreateStudentModel(String CNE, HashMap<String, String> studentData) {
+        students.put(CNE, new StudentModel(studentData));
     }
+    public static StudentModel GetStudentModel(String CNE) { return students.get(CNE); }
+
 }

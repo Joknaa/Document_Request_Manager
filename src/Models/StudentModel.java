@@ -1,11 +1,11 @@
-package ENSA.GenieLogiciel.Project.GLProject.src.Models;
+package GLProject.src.Models;
 
 import java.util.HashMap;
 
 public class StudentModel {
-    private final HashMap<String, String> StudentData = new HashMap<>();
+    private final HashMap<String, String> studentData = new HashMap<>();
 
-    StudentModel(){}
+    public StudentModel(){}
     public StudentModel(String CNE, String CIN, String fName, String lName, String email){
         SetCNE(CNE);
         SetCIN(CIN);
@@ -13,23 +13,38 @@ public class StudentModel {
         SetLastName(lName);
         SetEmail(email);
     }
+    public StudentModel(HashMap<String, String> studentData){
+        SetCNE(studentData.get("CNE"));
+        SetCIN(studentData.get("CIN"));
+        SetFistName(studentData.get("firstName"));
+        SetLastName(studentData.get("lastName"));
+        SetEmail(studentData.get("email"));
+    }
 
-    public void SetCNE(String CNE){ this.StudentData.put("CNE", CNE);}
-    public String GetCNE(){ return this.StudentData.get("CNE");}
+    public void SetCNE(String CNE){ this.studentData.put("CNE", CNE);}
+    public String GetCNE(){ return this.studentData.get("CNE");}
 
-    public void SetCIN(String CIN){ this.StudentData.put("CIN", CIN);}
-    public String GetCIN(){ return this.StudentData.get("CIN");}
+    public void SetCIN(String CIN){ this.studentData.put("CIN", CIN);}
+    public String GetCIN(){ return this.studentData.get("CIN");}
 
-    public void SetFistName(String firstName){ this.StudentData.put("firstName", firstName);}
-    public String GetFistName(){ return this.StudentData.get("firstName");}
+    public void SetFistName(String firstName){ this.studentData.put("firstName", firstName);}
+    public String GetFistName(){ return this.studentData.get("firstName");}
 
-    public void SetLastName(String lastName){ this.StudentData.put("lastName", lastName);}
-    public String GetLastName(){ return this.StudentData.get("lastName");}
+    public void SetLastName(String lastName){ this.studentData.put("lastName", lastName);}
+    public String GetLastName(){ return this.studentData.get("lastName");}
 
-    public void SetEmail(String email){ this.StudentData.put("email", email);}
-    public String GetEmail(){ return this.StudentData.get("email");}
+    public void SetEmail(String email){ this.studentData.put("email", email);}
+    public String GetEmail(){ return this.studentData.get("email");}
 
-    public static void GetStudentDate() { }
+    public HashMap<String, String> GetRequestRelatedData() {
+        HashMap<String, String> requestRelatedData = new HashMap<>();
+
+        requestRelatedData.put("email", studentData.get("email"));
+        requestRelatedData.put("CNE", studentData.get("CNE"));
+        requestRelatedData.put("CIN", studentData.get("CIN"));
+        return requestRelatedData; }
+
+    public HashMap<String, String> GetAllData() { return studentData; }
 
     public String GetDetails(){
         return String.format("=> Name: '%s %s' | ApogeeID: '%s' | CIN: '%s' | Email: '%s'",

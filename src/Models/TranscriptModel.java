@@ -1,4 +1,4 @@
-package ENSA.GenieLogiciel.Project.GLProject.src.Models;
+package GLProject.src.Models;
 
 public class TranscriptModel implements IDocumentModel {
     private int id;
@@ -16,5 +16,7 @@ public class TranscriptModel implements IDocumentModel {
     public String GetType() { return Type; }
 
     @Override
-    public String GetDetails() { return String.format("=> DocumentID: '%d' | DocumentType: '%s'", GetID(), GetType()); }
+    public String GetDetails() {
+        return String.format("=> DocumentID: '%d' | DocumentType: '%s'", GetID(), GetType());
+    }
 }
