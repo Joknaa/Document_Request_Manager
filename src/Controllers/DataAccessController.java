@@ -1,7 +1,7 @@
-package ENSA.GenieLogiciel.Project.GLProject.src.Controllers;
+package GLProject.src.Controllers;
 
-import static ENSA.GenieLogiciel.Project.GLProject.src.Controllers.OutputController.DisplayError;
-import static ENSA.GenieLogiciel.Project.GLProject.src.Controllers.StudentController.*;
+import static GLProject.src.Controllers.OutputController.DisplayError;
+import static GLProject.src.Controllers.StudentController.*;
 import java.util.HashMap;
 
 public class DataAccessController {

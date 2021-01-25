@@ -1,6 +1,6 @@
-package ENSA.GenieLogiciel.Project.GLProject.src.Controllers;
+package GLProject.src.Controllers;
 
-import ENSA.GenieLogiciel.Project.GLProject.src.Views.OutputView;
+import GLProject.src.Views.OutputView;
 
 public class OutputController {
 

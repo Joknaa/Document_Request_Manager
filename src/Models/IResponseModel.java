@@ -1,4 +1,4 @@
-package ENSA.GenieLogiciel.Project.GLProject.src.Models;
+package GLProject.src.Models;
 
 public interface IResponseModel {
     void SendDocument(String email, IDocumentModel document);

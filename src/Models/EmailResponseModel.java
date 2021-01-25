@@ -1,6 +1,6 @@
-package ENSA.GenieLogiciel.Project.GLProject.src.Models;
+package GLProject.src.Models;
 
-import static ENSA.GenieLogiciel.Project.GLProject.src.Controllers.OutputController.*;
+import static GLProject.src.Controllers.OutputController.*;
 
 public class EmailResponseModel implements IResponseModel{
     private String email;

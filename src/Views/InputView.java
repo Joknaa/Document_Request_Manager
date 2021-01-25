@@ -1,4 +1,4 @@
-package ENSA.GenieLogiciel.Project.GLProject.src.Views;
+package GLProject.src.Views;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;

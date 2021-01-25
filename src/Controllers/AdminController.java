@@ -1,8 +1,8 @@
-package ENSA.GenieLogiciel.Project.GLProject.src.Controllers;
+package GLProject.src.Controllers;
 
-import static ENSA.GenieLogiciel.Project.GLProject.src.Controllers.InputController.*;
-import static ENSA.GenieLogiciel.Project.GLProject.src.Controllers.OutputController.*;
-import ENSA.GenieLogiciel.Project.GLProject.src.Models.AdminModel;
+import static GLProject.src.Controllers.InputController.*;
+import static GLProject.src.Controllers.OutputController.*;
+import GLProject.src.Models.AdminModel;
 
 import java.util.HashMap;
 

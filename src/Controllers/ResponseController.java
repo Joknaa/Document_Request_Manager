@@ -1,9 +1,9 @@
-package ENSA.GenieLogiciel.Project.GLProject.src.Controllers;
+package GLProject.src.Controllers;
 
-import ENSA.GenieLogiciel.Project.GLProject.src.Models.EmailResponseModel;
-import ENSA.GenieLogiciel.Project.GLProject.src.Models.IDocumentModel;
-import ENSA.GenieLogiciel.Project.GLProject.src.Models.IResponseModel;
-import ENSA.GenieLogiciel.Project.GLProject.src.Models.RequestModel;
+import GLProject.src.Models.EmailResponseModel;
+import GLProject.src.Models.IDocumentModel;
+import GLProject.src.Models.IResponseModel;
+import GLProject.src.Models.RequestModel;
 
 public class ResponseController {
 

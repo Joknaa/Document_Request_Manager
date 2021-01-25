@@ -1,4 +1,4 @@
-package ENSA.GenieLogiciel.Project.GLProject.src.Views;
+package GLProject.src.Views;
 
 public class OutputView {
 

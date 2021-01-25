@@ -1,4 +1,4 @@
-package ENSA.GenieLogiciel.Project.GLProject.src.Models;
+package GLProject.src.Models;
 
 import java.util.HashMap;
 

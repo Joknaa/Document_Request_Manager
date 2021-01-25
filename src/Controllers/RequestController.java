@@ -1,11 +1,11 @@
-package ENSA.GenieLogiciel.Project.GLProject.src.Controllers;
+package GLProject.src.Controllers;
 
-import static ENSA.GenieLogiciel.Project.GLProject.src.Controllers.DataAccessController.*;
-import static ENSA.GenieLogiciel.Project.GLProject.src.Controllers.DocumentController.*;
-import static ENSA.GenieLogiciel.Project.GLProject.src.Controllers.InputController.Try_GetStringInput;
-import static ENSA.GenieLogiciel.Project.GLProject.src.Controllers.OutputController.*;
-import static ENSA.GenieLogiciel.Project.GLProject.src.Controllers.InputController.*;
-import ENSA.GenieLogiciel.Project.GLProject.src.Models.RequestModel;
+import static GLProject.src.Controllers.DataAccessController.*;
+import static GLProject.src.Controllers.DocumentController.*;
+import static GLProject.src.Controllers.InputController.Try_GetStringInput;
+import static GLProject.src.Controllers.OutputController.*;
+import static GLProject.src.Controllers.InputController.*;
+import GLProject.src.Models.RequestModel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -89,7 +89,7 @@ public class RequestController {
 
     private static void GetRequestData() {
         DisplayMessage("Fill the form(Email, CNE, CIN, DocType): ");
-        String[] input = InputController.try_GetRequestData();
+        String[] input = try_GetRequestData();
         for (int i = 0; i < requestRequirement.length; i++) {
             requestData.put(requestRequirement[i], input[i]);
         }

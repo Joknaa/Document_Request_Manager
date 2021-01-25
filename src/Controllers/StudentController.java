@@ -1,6 +1,6 @@
-package ENSA.GenieLogiciel.Project.GLProject.src.Controllers;
+package GLProject.src.Controllers;
 
-import ENSA.GenieLogiciel.Project.GLProject.src.Models.StudentModel;
+import GLProject.src.Models.StudentModel;
 import java.util.HashMap;
 
 public class StudentController {

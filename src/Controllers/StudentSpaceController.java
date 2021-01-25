@@ -1,8 +1,8 @@
-package ENSA.GenieLogiciel.Project.GLProject.src.Controllers;
+package GLProject.src.Controllers;
 
-import static ENSA.GenieLogiciel.Project.GLProject.src.Controllers.OutputController.*;
-import static ENSA.GenieLogiciel.Project.GLProject.src.Controllers.InputController.*;
-import static ENSA.GenieLogiciel.Project.GLProject.src.Controllers.RequestController.*;
+import static GLProject.src.Controllers.OutputController.*;
+import static GLProject.src.Controllers.InputController.*;
+import static GLProject.src.Controllers.RequestController.*;
 
 public class StudentSpaceController {
     private static int option = 1;

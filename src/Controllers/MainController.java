@@ -1,4 +1,4 @@
-package ENSA.GenieLogiciel.Project.GLProject.src.Controllers;
+package GLProject.src.Controllers;
 
 public class MainController {
     public static void Run(){

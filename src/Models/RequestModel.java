@@ -1,4 +1,4 @@
-package ENSA.GenieLogiciel.Project.GLProject.src.Models;
+package GLProject.src.Models;
 
 public class RequestModel {
     private String id;

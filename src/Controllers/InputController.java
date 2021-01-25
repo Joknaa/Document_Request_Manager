@@ -1,7 +1,7 @@
-package ENSA.GenieLogiciel.Project.GLProject.src.Controllers;
+package GLProject.src.Controllers;
 
-import static ENSA.GenieLogiciel.Project.GLProject.src.Controllers.OutputController.*;
-import ENSA.GenieLogiciel.Project.GLProject.src.Views.InputView;
+import static GLProject.src.Controllers.OutputController.*;
+import GLProject.src.Views.InputView;
 import java.util.InputMismatchException;
 
 public class InputController {

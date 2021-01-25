@@ -1,8 +1,8 @@
-package ENSA.GenieLogiciel.Project.GLProject.src.Controllers;
+package GLProject.src.Controllers;
 
-import ENSA.GenieLogiciel.Project.GLProject.src.Models.IDocumentModel;
-import ENSA.GenieLogiciel.Project.GLProject.src.Models.SchoolCertificateModel;
-import ENSA.GenieLogiciel.Project.GLProject.src.Models.TranscriptModel;
+import GLProject.src.Models.IDocumentModel;
+import GLProject.src.Models.SchoolCertificateModel;
+import GLProject.src.Models.TranscriptModel;
 import java.util.ArrayList;
 import java.util.List;
 

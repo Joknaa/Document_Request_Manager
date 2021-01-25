@@ -1,9 +1,9 @@
-package ENSA.GenieLogiciel.Project.GLProject.src.Controllers;
+package GLProject.src.Controllers;
 
-import ENSA.GenieLogiciel.Project.GLProject.src.Models.LogStatus;
-import static ENSA.GenieLogiciel.Project.GLProject.src.Controllers.InputController.*;
-import static ENSA.GenieLogiciel.Project.GLProject.src.Controllers.OutputController.*;
-import static ENSA.GenieLogiciel.Project.GLProject.src.Controllers.RequestController.*;
+import GLProject.src.Models.LogStatus;
+import static GLProject.src.Controllers.InputController.*;
+import static GLProject.src.Controllers.OutputController.*;
+import static GLProject.src.Controllers.RequestController.*;
 
 public class AdminSpaceController {
     private static LogStatus adminLogStatus = LogStatus.LoggedOut;
