@@ -14,11 +14,11 @@ public class EmailResponseModel implements IResponseModel{
     public String GetEmail(){ return this.email;}
 
     @Override
-    public void SendDocument(IDocumentModel document) {
-        DisplayMessage(String.format("Sending: %s",document.GetDetails()));
+    public void SendDocument(String email, IDocumentModel document) {
+        DisplayMessage(String.format("Sending to '%s': %s",email, document.GetDetails()));
     }
     @Override
-    public void SendError(String error) {
-        DisplayError(error);
+    public void SendError(String email, String error) {
+        DisplayError(String.format("Sending to '%s': Request Declined !",email));
     }
 }

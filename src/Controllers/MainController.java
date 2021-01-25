@@ -3,7 +3,7 @@ package ENSA.GenieLogiciel.Project.GLProject.src.Controllers;
 public class MainController {
     public static void Run(){
         int Option = 1;
-        DataBaseController.Connect();
+        DataBaseController.dbConnection();
         while (Option != 0) {
             OutputController.DisplayMainMenu();
             Option = InputController.Try_GetIntInput();

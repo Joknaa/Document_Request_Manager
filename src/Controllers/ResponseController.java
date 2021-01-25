@@ -11,16 +11,16 @@ public class ResponseController {
         if (targetRequest.IsAccepted()){
             SendAcceptanceRespond(targetRequest.GetEmail(), targetRequest.GetDocument());
         } else {
-            SendDenialResponse();
+            SendDenialResponse(targetRequest.GetEmail());
         }
     }
 
     private static void SendAcceptanceRespond(String emailAddress, IDocumentModel document) {
         IResponseModel email = new EmailResponseModel(emailAddress);
-        email.SendDocument(document);
+        email.SendDocument(emailAddress, document);
     }
-    private static void SendDenialResponse() {
+    private static void SendDenialResponse(String emailAddress) {
         IResponseModel email = new EmailResponseModel();
-        email.SendError("Request Declined !");
+        email.SendError(emailAddress,"Request Declined !");
     }
 }

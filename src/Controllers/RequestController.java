@@ -111,11 +111,13 @@ public class RequestController {
     private static void RegistreRequest() {
         String UniqueID = GenerateUniqueID();
         String CNE = requestData.get("CNE");
+        String email = requestData.get("email");
         String DocumentType = requestData.get("DocumentType");
 
         requestsList.put(UniqueID, new RequestModel(
                 UniqueID,
                 CNE,
+                email,
                 GetDocumentInstance(DocumentType)));
     }
     private static String GenerateUniqueID(){

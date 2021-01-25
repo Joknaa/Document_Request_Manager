@@ -8,7 +8,7 @@ public class RequestModel {
     private boolean accepted = false;
 
     public RequestModel(){}
-    public RequestModel(String id, String requesterCNE, IDocumentModel neededDocument){
+    public RequestModel(String id, String requesterCNE, String email, IDocumentModel neededDocument){
         SetID(id);
         SetEmail(email);
         SetRequesterCNE(requesterCNE);
