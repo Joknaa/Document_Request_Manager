@@ -1,11 +1,11 @@
 package GLProject.Experiments;
 
+import static GLProject.Experiments.OutputView.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class StudentScreen {
-    private static final JFrame frame = new JFrame();
+public class StudentScreen implements IMenu{
     private static final JPanel panel = new JPanel();
     private static final JLabel titlePage = new JLabel("Renseigner le formulaire suivant pour demander un document: ");
     private static final JLabel emailLabel = new JLabel("Adresse email: ");
@@ -16,10 +16,20 @@ public class StudentScreen {
     private static final JTextField cinText = new JTextField(300);
     private static final JLabel docLabel = new JLabel("Choix du document: ");
     private static final JButton submitButton = new JButton("Envoyer la demande");
+    private static final JButton BackButton = new JButton("Back");
     private static final JRadioButton docOption1 = new JRadioButton("Attestation de scolarité");
     private static final JRadioButton docOption2 = new JRadioButton("Relevé de notes");
 
-    public static void Display() {
+    public JPanel GetPanel(){ return SetupPanel(); }
+    public void Display(JFrame appFrame) {
+        SetupPanel();
+        appFrame.add(panel);
+        appFrame.setTitle("Espace Etudiant");
+        appFrame.setSize(700,300);
+        appFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        appFrame.setVisible(true);
+    }
+    private static JPanel SetupPanel() {
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
         panel.setLayout(null);
 
@@ -35,15 +45,13 @@ public class StudentScreen {
         SetupComponent(docOption2, 400,180,200,26);
         SetupComponent(submitButton, 205, 220, 150, 30);
 
+        panel.add(BackButton);
+
         docOption1.addActionListener(new OnSelectOptionAction());
         docOption2.addActionListener(new OnSelectOptionAction());
-        submitButton.addActionListener(new OnSubmitAction());
-
-        frame.add(panel);
-        frame.setTitle("Espace Etudiant");
-        frame.setSize(700,300);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+        submitButton.addActionListener(new OnClick_SwapFrames(studentMenu, adminMenu));
+        BackButton.addActionListener(new OnClick_SwapFrames(studentMenu, mainMenu));
+        return panel;
     }
     private static void SetupComponent(JComponent Component,int x, int y, int w, int h) {
         Component.setBounds(x, y, w, h);

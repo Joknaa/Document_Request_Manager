@@ -1,23 +1,26 @@
 package GLProject.Experiments;
-
 import javax.swing.*;
 import java.awt.*;
+public class AdminScreen implements IMenu{
+    private static final JPanel adminPanel = new JPanel();
+    private static JTable table = new JTable();
 
-public class AdminScreen{
-    private static final JFrame adminFrame = new JFrame();
+    public JPanel GetPanel() { return SetupPanel(); }
+    public void Display(JFrame appFrame){
 
-    public static void Display(){
-        //adminFrame.setLayout(new FlowLayout());
-        JTable table = SetupTable();
-
-        adminFrame.add(new JScrollPane(table));
-        adminFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        adminFrame.setSize(600,400);
-        adminFrame.setTitle("Espace Administrateur");
-        adminFrame.setVisible(true);
+        appFrame.add(new JScrollPane(table));
+        //appFrame.add(adminPanel);
+        appFrame.setTitle("Espace Administrateur");
+        appFrame.setSize(600,400);
+        appFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        appFrame.setVisible(true);
     }
-
-    private static JTable SetupTable() {
+    private static JPanel SetupPanel() {
+        SetupTable();
+        adminPanel.add(table);
+        return adminPanel;
+    }
+    private static void SetupTable() {
         String[] columnNames =  {"Type demande","Email","N° Apogée","CIN","L'envoi d'email"};
         Object[][] data = {
                 {"bill","Hazel","Male","Hazel","Hazel"},
@@ -25,12 +28,11 @@ public class AdminScreen{
                 {"Fia","FDF","plz","Fia","Fia"},
                 {"Salam","Cava","alik","Cava","Cava"},
         };
-        JTable table = new JTable(data, columnNames);
+        table = new JTable(data, columnNames);
 
         table.setBounds(20,120,200,50);
         table.setPreferredScrollableViewportSize(new Dimension(500,50));
         table.setFillsViewportHeight(true);
-        return table;
     }
 }
     /*private static JLabel session = new JLabel("Session: Admin ");
