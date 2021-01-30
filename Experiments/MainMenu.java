@@ -9,16 +9,14 @@ public class MainMenu implements IMenu{
     private static final JButton adminButton   = new JButton("Espace Administration");
     private static final JButton studentButton = new JButton("Espace Etudiant");
 
-    public JPanel GetPanel(){ return SetupPanel(); }
+    public JPanel GetPanel(){ return mainPanel; }
     public void Display(JFrame appFrame) {
         SetupPanel();
         appFrame.add(mainPanel);
         appFrame.setTitle("Service Etudiant");
-        appFrame.setSize(600, 350);
-        appFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        appFrame.setVisible(true);
     }
-    private static JPanel SetupPanel() {
+    private static void SetupPanel() {
+        mainPanel.removeAll();
         SetupButton(adminButton, 50);
         SetupButton(studentButton, 300);
 
@@ -30,7 +28,6 @@ public class MainMenu implements IMenu{
         mainPanel.add(adminButton);
         mainPanel.add(studentButton);
         mainPanel.setBackground(Color.lightGray);
-        return mainPanel;
     }
     private static void SetupButton(JButton button, int xPosition) {
         button.setBounds(xPosition, 80, 200, 100);

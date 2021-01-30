@@ -1,27 +1,29 @@
 package GLProject.Experiments;
+import static GLProject.Experiments.OutputView.*;
 import javax.swing.*;
 import java.awt.*;
+
 public class AdminScreen implements IMenu{
     private static final JPanel adminPanel = new JPanel();
+    private static final JButton button = new JButton("back");
     private static JTable table = new JTable();
 
-    public JPanel GetPanel() { return SetupPanel(); }
+    public JPanel GetPanel() { return adminPanel; }
     public void Display(JFrame appFrame){
-
-        appFrame.add(new JScrollPane(table));
-        //appFrame.add(adminPanel);
+        SetupPanel();
+        appFrame.add(adminPanel);
+        //appFrame.add(new JScrollPane(table));
         appFrame.setTitle("Espace Administrateur");
-        appFrame.setSize(600,400);
-        appFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        appFrame.setVisible(true);
     }
-    private static JPanel SetupPanel() {
+    private static void SetupPanel() {
+        adminPanel.removeAll();
         SetupTable();
-        adminPanel.add(table);
-        return adminPanel;
+        button.addActionListener(new OnClick_SwapFrames(adminMenu, mainMenu));
+        adminPanel.add(new JScrollPane(table));
+        adminPanel.add(button, BorderLayout.SOUTH);
     }
     private static void SetupTable() {
-        String[] columnNames =  {"Type demande","Email","N° Apogée","CIN","L'envoi d'email"};
+        String[] columnNames =  {"Email", "N° Apogée","CIN", "Type demande", "L'envoi d'email"};
         Object[][] data = {
                 {"bill","Hazel","Male","Hazel","Hazel"},
                 {"Samaka","Dyali","Ana","Dyali","Dyali"},
@@ -29,6 +31,7 @@ public class AdminScreen implements IMenu{
                 {"Salam","Cava","alik","Cava","Cava"},
         };
         table = new JTable(data, columnNames);
+
 
         table.setBounds(20,120,200,50);
         table.setPreferredScrollableViewportSize(new Dimension(500,50));

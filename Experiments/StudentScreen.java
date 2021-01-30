@@ -4,7 +4,7 @@ import static GLProject.Experiments.OutputView.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+//todo; check the size of te button submit request
 public class StudentScreen implements IMenu{
     private static final JPanel panel = new JPanel();
     private static final JLabel titlePage = new JLabel("Renseigner le formulaire suivant pour demander un document: ");
@@ -25,9 +25,6 @@ public class StudentScreen implements IMenu{
         SetupPanel();
         appFrame.add(panel);
         appFrame.setTitle("Espace Etudiant");
-        appFrame.setSize(700,300);
-        appFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        appFrame.setVisible(true);
     }
     private static JPanel SetupPanel() {
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));

@@ -10,7 +10,14 @@ public class OutputView {
     static final IMenu adminMenu   = new AdminScreen();
 
     public static void Start(){
+        SetupFrame();
         new MainMenu().Display(appFrame);
+    }
+
+    private static void SetupFrame() {
+        appFrame.setSize(600, 350);
+        appFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        appFrame.setVisible(true);
     }
 
     static class OnClick_SwapFrames implements ActionListener {
@@ -27,6 +34,5 @@ public class OutputView {
             toMenu.GetPanel().setVisible(true);
             toMenu.Display(appFrame);
         }
-
     }
 }
