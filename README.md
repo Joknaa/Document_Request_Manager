@@ -1,2 +1,2 @@
 # GLProject
- Project GL ENSAte GI2
+ Project GL ENSAte GI2.
