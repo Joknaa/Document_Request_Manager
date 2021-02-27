@@ -1,4 +1,4 @@
-package GLProject.Experiments;
+package Experiments;
 
 import javax.swing.*;
 

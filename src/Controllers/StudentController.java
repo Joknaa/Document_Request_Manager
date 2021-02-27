@@ -1,6 +1,6 @@
-package GLProject.src.Controllers;
+package Controllers;
 
-import GLProject.src.Models.StudentModel;
+import Models.StudentModel;
 import java.util.HashMap;
 
 public class StudentController {

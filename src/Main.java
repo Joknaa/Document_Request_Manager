@@ -1,6 +1,4 @@
-package GLProject.src;
-
-import GLProject.src.Controllers.MainController;
+import Controllers.MainController;
 
 public class Main {
     public static void main(String[] args) {

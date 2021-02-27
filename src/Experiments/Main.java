@@ -1,4 +1,4 @@
-package GLProject.Experiments;
+package Experiments;
 
 
 public class Main {

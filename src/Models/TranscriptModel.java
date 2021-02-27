@@ -1,4 +1,4 @@
-package GLProject.src.Models;
+package Models;
 
 public class TranscriptModel implements IDocumentModel {
     private int id;

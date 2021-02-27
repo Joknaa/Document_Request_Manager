@@ -1,8 +1,8 @@
-package GLProject.src.Controllers;
+package Controllers;
 
-import static GLProject.src.Controllers.InputController.*;
-import static GLProject.src.Controllers.OutputController.*;
-import GLProject.src.Models.AdminModel;
+import static Controllers.InputController.*;
+import static Controllers.OutputController.*;
+import Models.AdminModel;
 
 import java.util.HashMap;
 

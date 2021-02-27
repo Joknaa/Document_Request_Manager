@@ -1,9 +1,9 @@
-package GLProject.src.Controllers;
+package Controllers;
 
-import GLProject.src.Models.LogStatus;
-import static GLProject.src.Controllers.InputController.*;
-import static GLProject.src.Controllers.OutputController.*;
-import static GLProject.src.Controllers.RequestController.*;
+import Models.LogStatus;
+import static Controllers.InputController.*;
+import static Controllers.OutputController.*;
+import static Controllers.RequestController.*;
 
 public class AdminSpaceController {
     private static LogStatus adminLogStatus = LogStatus.LoggedOut;

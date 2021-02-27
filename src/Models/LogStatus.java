@@ -1,4 +1,4 @@
-package GLProject.src.Models;
+package Models;
 
 public enum LogStatus {
     LoggedIn,

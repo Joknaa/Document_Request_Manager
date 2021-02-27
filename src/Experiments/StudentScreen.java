@@ -1,6 +1,6 @@
-package GLProject.Experiments;
+package Experiments;
 
-import static GLProject.Experiments.OutputView.*;
+import static Experiments.OutputView.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

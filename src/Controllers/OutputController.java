@@ -1,6 +1,6 @@
-package GLProject.src.Controllers;
+package Controllers;
 
-import GLProject.src.Views.OutputView;
+import Views.OutputView;
 
 public class OutputController {
 

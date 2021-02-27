@@ -1,6 +1,6 @@
-package GLProject.src.Models;
+package Models;
 
-import static GLProject.src.Controllers.OutputController.*;
+import static Controllers.OutputController.*;
 
 public class EmailResponseModel implements IResponseModel{
     private String email;

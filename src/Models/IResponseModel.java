@@ -1,4 +1,4 @@
-package GLProject.src.Models;
+package Models;
 
 public interface IResponseModel {
     void SendDocument(String email, IDocumentModel document);
