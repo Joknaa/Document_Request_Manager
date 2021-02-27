@@ -1,5 +1,6 @@
 package New.MVPViews.UI;
 
+import static New.MVPViews.OutputView.SetupMainPanelLayout;
 import static javax.swing.GroupLayout.*;
 import static New.MVPViews.OutputView.*;
 import javax.swing.*;
@@ -18,7 +19,7 @@ public class SignupPanel extends JPanel implements IPanel, ActionListener {
     private final JLabel passwordLabel = new JLabel(new ImageIcon("Resources/lock_30px.png"));
     private final JLabel passwordRepeatLabel = new JLabel(new ImageIcon("Resources/lock_30px.png"));
     private final JLabel loginLabel = new JLabel(new ImageIcon("Resources/user_30px.png"));
-    private final JLabel logoTextLabel = new JLabel("Multimedia Library");
+    private final JLabel logoTextLabel = new JLabel("Request Manager");
     private final JButton signUpButton = new JButton("Sign Up");
     private final JButton closeButton = new JButton("X");
     private final JPasswordField passwordField = new JPasswordField();
@@ -29,7 +30,7 @@ public class SignupPanel extends JPanel implements IPanel, ActionListener {
     public SignupPanel() {
         SetupLogoPanel();
         SetupInputPanel();
-        SetupMainPanel();
+        SetupMainPanelLayout(logoPanel, inputPanel, this);
     }
 
     private void SetupLogoPanel() {
@@ -110,27 +111,6 @@ public class SignupPanel extends JPanel implements IPanel, ActionListener {
                                 .addComponent(signUpButton, DEFAULT_SIZE, DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(121, 121, 121)
                         )
-        );
-    }
-
-    private void SetupMainPanel() {
-        SetupMainPanelLayout();
-    }
-    private void SetupMainPanelLayout() {
-        var mainPanelLayout = new GroupLayout(this);
-
-        this.setLayout(mainPanelLayout);
-        mainPanelLayout.setHorizontalGroup(
-                mainPanelLayout.createParallelGroup(Alignment.LEADING)
-                        .addGroup(mainPanelLayout.createSequentialGroup()
-                                .addComponent(logoPanel, PREFERRED_SIZE, DEFAULT_SIZE, PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(inputPanel, PREFERRED_SIZE, DEFAULT_SIZE, PREFERRED_SIZE))
-        );
-        mainPanelLayout.setVerticalGroup(
-                mainPanelLayout.createParallelGroup(Alignment.LEADING)
-                        .addComponent(logoPanel, DEFAULT_SIZE, DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(inputPanel, DEFAULT_SIZE, DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }
 

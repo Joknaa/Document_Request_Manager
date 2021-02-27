@@ -12,61 +12,49 @@ import java.awt.event.ActionListener;
 
 public class MainPanel extends JPanel implements IPanel, ActionListener {
     //<editor-fold desc="Variables Declarations">">
-    private final JPanel logoPanel = new JPanel();
     private final JPanel headerPanel = new JPanel();
+    private final JPanel profilePanel = new JPanel();
     private final JPanel descriptionPanel = new JPanel();
     private final JPanel listPanel = new JPanel();
     private final JPanel buttonsPanel = new JPanel();
     private final JList<String> list = new JList<>();
-    private final JLabel logoLabel = new JLabel(new ImageIcon("Resources/library_100px.png"));
+    private final JLabel headerLogo = new JLabel(new ImageIcon("Resources/library_100px.png"));
     private final JLabel greetingLabel = new JLabel("Greeting !");
     private final JScrollPane scrollPanList = new JScrollPane();
     private final JTable descriptionTable = new JTable();
-    private final JTextArea logoTextArea = new JTextArea();
+    private final JTextArea headerTextArea = new JTextArea("Request Manager");
     private final JButton closeButton = new JButton("X");
-    private final JButton addButton = new JButton("Add");
-    private final JButton editButton = new JButton("Edit");
-    private final JButton deleteButton = new JButton("Delete");
+    private final JButton acceptButton = new JButton("Accept");
+    private final JButton declineButton = new JButton("Decline");
     private final JButton logOutButton = new JButton("Logout");
     private final DefaultListModel<String> defaultListModel = new DefaultListModel<>();
     //</editor-fold>
 
     public MainPanel(){
-        SetupLogoPanel();
         SetupHeaderPanel();
+        SetupProfilePanel();
         SetupDescriptionPanel();
         SetupListPanel();
         SetupButtonsPanel();
         SetupMainPanel();
     }
 
-    private void SetupLogoPanel() {
-        SetupLogoTextArea();
-        SetupLogoPanelLayout();
-        logoPanel.setBackground(PICKLED_BLUEWOOD);
-        logoPanel.setPreferredSize(new Dimension(450, 500));
+    private void SetupHeaderPanel() {
+        SetupHeaderTextArea(headerTextArea);
+        SetupHeaderPanelLayout();
+        headerPanel.setBackground(PICKLED_BLUEWOOD);
+        headerPanel.setPreferredSize(new Dimension(450, 500));
     }
-    private void SetupLogoTextArea() {
-        logoTextArea.setEditable(false);
-        logoTextArea.setBackground(PICKLED_BLUEWOOD);
-        logoTextArea.setColumns(5);
-        logoTextArea.setFont(new Font("Source Code Pro", Font.PLAIN, 30));
-        logoTextArea.setForeground(BLUE_BAYOUX);
-        logoTextArea.setRows(1);
-        logoTextArea.setTabSize(1);
-        logoTextArea.setText("Multimedia Library");
-        logoTextArea.setAutoscrolls(false);
-        logoTextArea.setFocusable(false);
-    }
-    private void SetupLogoPanelLayout() {
-        GroupLayout LogoPanelLayout = new GroupLayout(logoPanel);
-        logoPanel.setLayout(LogoPanelLayout);
+
+    private void SetupHeaderPanelLayout() {
+        GroupLayout LogoPanelLayout = new GroupLayout(headerPanel);
+        headerPanel.setLayout(LogoPanelLayout);
         LogoPanelLayout.setHorizontalGroup(
                 LogoPanelLayout.createParallelGroup(Alignment.LEADING)
                         .addGroup(LogoPanelLayout.createSequentialGroup()
-                                .addComponent(logoLabel)
+                                .addComponent(headerLogo)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(logoTextArea, DEFAULT_SIZE, 344, Short.MAX_VALUE)
+                                .addComponent(headerTextArea, DEFAULT_SIZE, 344, Short.MAX_VALUE)
                         )
         );
         LogoPanelLayout.setVerticalGroup(
@@ -75,19 +63,19 @@ public class MainPanel extends JPanel implements IPanel, ActionListener {
                                 .addGroup(LogoPanelLayout.createParallelGroup(Alignment.TRAILING)
                                         .addGroup(LogoPanelLayout.createSequentialGroup()
                                                 .addContainerGap()
-                                                .addComponent(logoTextArea, PREFERRED_SIZE, DEFAULT_SIZE, PREFERRED_SIZE)
+                                                .addComponent(headerTextArea, PREFERRED_SIZE, DEFAULT_SIZE, PREFERRED_SIZE)
                                                 .addGap(41, 41, 41))
-                                        .addComponent(logoLabel))
+                                        .addComponent(headerLogo))
                                 .addGap(0, 0, Short.MAX_VALUE)
                         )
         );
     }
 
-    private void SetupHeaderPanel() {
-        headerPanel.setBackground(BLUE_BAYOUX);
+    private void SetupProfilePanel() {
+        profilePanel.setBackground(BLUE_BAYOUX);
         SetupGreetingLabel();
         SetupSubmitButton(logOutButton, this, true, "LogOut");
-        SetupHeaderPanelLayout();
+        SetupProfilePanelLayout();
     }
     private void SetupGreetingLabel() {
         greetingLabel.setFont(new Font("Source Code Pro", Font.PLAIN, 24));
@@ -95,9 +83,9 @@ public class MainPanel extends JPanel implements IPanel, ActionListener {
         greetingLabel.setHorizontalAlignment(SwingConstants.CENTER);
         greetingLabel.setText("Greeting " + GetCurrentUser() + "!");
     }
-    private void SetupHeaderPanelLayout() {
-        GroupLayout headerPanelLayout = new GroupLayout(headerPanel);
-        headerPanel.setLayout(headerPanelLayout);
+    private void SetupProfilePanelLayout() {
+        GroupLayout headerPanelLayout = new GroupLayout(profilePanel);
+        profilePanel.setLayout(headerPanelLayout);
         headerPanelLayout.setHorizontalGroup(
                 headerPanelLayout.createParallelGroup(Alignment.LEADING)
                         .addComponent(greetingLabel, Alignment.TRAILING, DEFAULT_SIZE, DEFAULT_SIZE, Short.MAX_VALUE)
@@ -137,7 +125,7 @@ public class MainPanel extends JPanel implements IPanel, ActionListener {
         descriptionTable.setRowHeight(35);
     }
     private void CreateDescriptionTable() {
-        String[][] data = {{"Name", null}, {"Added by", null}, {"Date", null}, {"Location", null}};
+        String[][] data = {{"CIN", null}, {"N° Apoge", null}, {"Email", null}, {"Document", null}};
         String[] columnNames = {"", ""};
         descriptionTable.setModel(new DefaultTableModel(data,columnNames) {
             final boolean[] canEdit = new boolean [] { false, false };
@@ -232,9 +220,8 @@ public class MainPanel extends JPanel implements IPanel, ActionListener {
 
     private void SetupButtonsPanel() {
         buttonsPanel.setBackground(BLUE_BAYOUX);
-        SetupSubmitButton(addButton, this, true, "Add an item to the list");
-        SetupSubmitButton(editButton, this, false, "Edit an item in the list");
-        SetupSubmitButton(deleteButton, this, false, "Delete an item from the list");
+        SetupSubmitButton(acceptButton, this, false, "Accept request");
+        SetupSubmitButton(declineButton, this, false, "Decline request");
         SetupButtonsPanelLayout();
     }
     private void SetupButtonsPanelLayout() {
@@ -242,23 +229,20 @@ public class MainPanel extends JPanel implements IPanel, ActionListener {
         buttonsPanel.setLayout(buttonsPanelLayout);
         buttonsPanelLayout.setHorizontalGroup(
                 buttonsPanelLayout.createParallelGroup(Alignment.LEADING)
-                        .addGroup(Alignment.TRAILING, buttonsPanelLayout.createSequentialGroup()
+                        .addGroup(Alignment.CENTER, buttonsPanelLayout.createSequentialGroup()
                                 .addContainerGap(36, Short.MAX_VALUE)
-                                .addComponent(addButton, PREFERRED_SIZE, DEFAULT_SIZE, PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(editButton, PREFERRED_SIZE, DEFAULT_SIZE, PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(deleteButton, PREFERRED_SIZE, DEFAULT_SIZE, PREFERRED_SIZE)
-                                .addGap(44, 44, 44))
+                                .addComponent(acceptButton, PREFERRED_SIZE, DEFAULT_SIZE, PREFERRED_SIZE)
+                                .addGap(40, 40, 40)
+                                .addComponent(declineButton, PREFERRED_SIZE, DEFAULT_SIZE, PREFERRED_SIZE)
+                                .addGap(100, 100, 100))
         );
         buttonsPanelLayout.setVerticalGroup(
                 buttonsPanelLayout.createParallelGroup(Alignment.LEADING)
                         .addGroup(Alignment.TRAILING, buttonsPanelLayout.createSequentialGroup()
                                 .addContainerGap(DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(buttonsPanelLayout.createParallelGroup(Alignment.BASELINE)
-                                        .addComponent(editButton, PREFERRED_SIZE, 23, PREFERRED_SIZE)
-                                        .addComponent(addButton, PREFERRED_SIZE, 23, PREFERRED_SIZE)
-                                        .addComponent(deleteButton, PREFERRED_SIZE, 23, PREFERRED_SIZE))
+                                        .addComponent(acceptButton, PREFERRED_SIZE, 23, PREFERRED_SIZE)
+                                        .addComponent(declineButton, PREFERRED_SIZE, 23, PREFERRED_SIZE))
                                 .addGap(33, 33, 33))
         );
     }
@@ -276,7 +260,7 @@ public class MainPanel extends JPanel implements IPanel, ActionListener {
                 MainPanelLayout.createParallelGroup(Alignment.LEADING)
                         .addGroup(MainPanelLayout.createSequentialGroup()
                                 .addGroup(MainPanelLayout.createParallelGroup(Alignment.LEADING, false)
-                                        .addComponent(logoPanel, DEFAULT_SIZE, DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(headerPanel, DEFAULT_SIZE, DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(listPanel, DEFAULT_SIZE, DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(MainPanelLayout.createParallelGroup(Alignment.LEADING)
@@ -288,7 +272,7 @@ public class MainPanel extends JPanel implements IPanel, ActionListener {
                                                                 .addComponent(buttonsPanel, PREFERRED_SIZE, DEFAULT_SIZE, PREFERRED_SIZE)))
                                                 .addGap(8, 8, 8))
                                         .addGroup(MainPanelLayout.createSequentialGroup()
-                                                .addComponent(headerPanel, PREFERRED_SIZE, DEFAULT_SIZE, PREFERRED_SIZE)
+                                                .addComponent(profilePanel, PREFERRED_SIZE, DEFAULT_SIZE, PREFERRED_SIZE)
                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(closeButton, PREFERRED_SIZE, 21, PREFERRED_SIZE)
                                                 .addGap(0, 7, Short.MAX_VALUE))))
@@ -298,7 +282,7 @@ public class MainPanel extends JPanel implements IPanel, ActionListener {
                         .addGroup(MainPanelLayout.createSequentialGroup()
                                 .addGap(8, 8, 8)
                                 .addGroup(MainPanelLayout.createParallelGroup(Alignment.LEADING)
-                                        .addComponent(headerPanel, PREFERRED_SIZE, DEFAULT_SIZE, PREFERRED_SIZE)
+                                        .addComponent(profilePanel, PREFERRED_SIZE, DEFAULT_SIZE, PREFERRED_SIZE)
                                         .addComponent(closeButton, PREFERRED_SIZE, 23, PREFERRED_SIZE))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(descriptionPanel, PREFERRED_SIZE, 196, PREFERRED_SIZE)
@@ -306,7 +290,7 @@ public class MainPanel extends JPanel implements IPanel, ActionListener {
                                 .addComponent(buttonsPanel, PREFERRED_SIZE, 57, PREFERRED_SIZE)
                                 .addGap(84, 84, 84))
                         .addGroup(Alignment.TRAILING, MainPanelLayout.createSequentialGroup()
-                                .addComponent(logoPanel, PREFERRED_SIZE, 100, PREFERRED_SIZE)
+                                .addComponent(headerPanel, PREFERRED_SIZE, 100, PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(listPanel, PREFERRED_SIZE, DEFAULT_SIZE, PREFERRED_SIZE)
                         )
@@ -316,8 +300,8 @@ public class MainPanel extends JPanel implements IPanel, ActionListener {
     private void ListSelectionChanged(ListSelectionEvent evt) {
         String selectedValue = list.getSelectedValue();
         if (!evt.getValueIsAdjusting()) {
-            editButton.setEnabled(true);
-            deleteButton.setEnabled(true);
+            acceptButton.setEnabled(true);
+            declineButton.setEnabled(true);
             OnListSelection_UpdateDescription(selectedValue, descriptionTable);
         } }
 
@@ -329,14 +313,11 @@ public class MainPanel extends JPanel implements IPanel, ActionListener {
     public void Deactivate(){ this.setVisible(false);}
     @Override
     public void actionPerformed(ActionEvent event) {
-        if (event.getSource().equals(logOutButton))
+        if (event.getSource().equals(logOutButton)) {
             OnClick_Logout();
-        else if (event.getSource().equals(addButton))
-            OnClick_AddMedia(defaultListModel, descriptionTable);
-        else if (event.getSource().equals(editButton))
-            OnClick_EditMedia(list, defaultListModel, descriptionTable);
-        else if (event.getSource().equals(deleteButton)){
-            OnClick_DeleteMedia(list, defaultListModel, deleteButton);
+            return;
         }
+        boolean accepted = event.getSource().equals(acceptButton);
+        OnClick_ManageRequest(accepted, list, defaultListModel);
     }
 }

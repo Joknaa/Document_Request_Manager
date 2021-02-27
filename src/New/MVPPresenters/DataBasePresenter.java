@@ -1,44 +1,55 @@
 package New.MVPPresenters;
 
 import New.MVPModels.DataBaseModel;
-
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import static New.MVPPresenters.OutputPresenter.*;
+import static New.MVPPresenters.RequestPresenter.*;
 
 public class DataBasePresenter {
     private static final String url = DataBaseModel.GetUrl();
     private static final String login = DataBaseModel.GetLogin();
     private static final String password = DataBaseModel.GetPassword();
-    public static int CurrentID = 0;
     private static Connection Session = null;
 
-    public static void SetupDataBaseConnection(){
-        try {
-            Connect();
-            SQL_TestConnectivity();
-            Disconnect();
-        } catch (SQLException | ClassNotFoundException e) {
-            DisplayError("Ops !! You can't connect to the DataBase\n");
-            System.exit(1);
-        }
+    //<editor-fold desc="Loading the 'Request's list !!">
+    public static void SetupDataBaseConnection() throws SQLException, ClassNotFoundException {
+        Connect();
+        int[] IDs = SQL_GetRequestsIDList();
+        SetRequestsList(IDs);
+        Disconnect();
     }
-    public static void Connect() throws ClassNotFoundException, SQLException {
+    private static void Connect() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
-        Session = DriverManager.getConnection(url,login,password) ;
+        Session = DriverManager.getConnection(url,login,password);
     }
-    private static void SQL_TestConnectivity() throws SQLException {
-        String query = "SELECT * FROM user;";
-        Session.createStatement().executeQuery(query);
+    private static int[] SQL_GetRequestsIDList() throws SQLException {
+        String query = "SELECT id FROM request WHERE accepted = false;";
+        ResultSet dataSet = Session.createStatement().executeQuery(query);
+
+        String querySize = "SELECT COUNT(id) AS total FROM request WHERE accepted = false;";
+        ResultSet dataSetSize = Session.createStatement().executeQuery(querySize);
+        return ConvertMediaListToStringArray(dataSet, dataSetSize);
     }
-    public static void Disconnect() throws SQLException {
+    private static int[] ConvertMediaListToStringArray(ResultSet dataSet, ResultSet dataSetSize) throws SQLException {
+        dataSetSize.next();
+        int[] IDs = new int[dataSetSize.getInt("total")];
+
+        for (int i = 0; i < IDs.length && dataSet.next(); i++) {
+            IDs[i] = Integer.parseInt((dataSet.getString(1)));
+        }
+
+        return IDs;
+    }
+    private static void Disconnect() throws SQLException {
         if (Session != null){
             Session.close();
             Session = null;
         }
     }
-
+    //</editor-fold">
+    //<editor-fold desc="SignIn / SignUp">
     public static void SignUp(String login, String password) throws SQLException, ClassNotFoundException, UserAlreadyExistException {
             Connect();
             SQL_Check_LoginAvailable(login);
@@ -47,12 +58,12 @@ public class DataBasePresenter {
             Disconnect();
     }
     private static void SQL_Check_LoginAvailable(String login) throws SQLException, UserAlreadyExistException {
-        String query = "SELECT * FROM user WHERE Username='" + login + "';";
+        String query = "SELECT * FROM admin WHERE username='" + login + "';";
         ResultSet rt = Session.createStatement().executeQuery(query);
         if (rt.next()) throw new UserAlreadyExistException("login already exist");
     }
     private static void SQL_SignUp(String login, String password) throws SQLException {
-        String query = "INSERT INTO user(username, password) VALUES ('" + login + "', '" + password + "');";
+        String query = "INSERT INTO admin(username, password) VALUES ('" + login + "', '" + password + "');";
         Session.createStatement().executeUpdate(query);
     }
 
@@ -63,98 +74,52 @@ public class DataBasePresenter {
             Disconnect();
     }
     private static void SQL_Check_UserExist(String login, String password) throws SQLException, UserNotFoundException {
-        String query = "SELECT * FROM user WHERE Username='" + login + "' AND Password='" + password + "';";
+        String query = "SELECT * FROM admin WHERE Username='" + login + "' AND Password='" + password + "';";
         ResultSet rt = Session.createStatement().executeQuery(query);
         if (!rt.isBeforeFirst()){
             throw new UserNotFoundException("Login or Password Incorrect");
         }
     }
     private static void SignIn(String login) { UserPresenter.Login(login); }
-
-    public static String[] GetMediaList() throws SQLException, ClassNotFoundException {
-        String[] mediaList;
+    //</editor-fold>
+    //<editor-fold desc="Getting 'Request' data">
+    public static String[] GetRequestDescription(String requestName) throws SQLException, ClassNotFoundException {
         Connect();
-        mediaList = SQL_GetMediaList();
-        Disconnect();
-        return mediaList;
-    }
-    private static String[] SQL_GetMediaList() throws SQLException {
-        String query = "SELECT Name FROM media;";
-        ResultSet dataSet = Session.createStatement().executeQuery(query);
-        return ConvertMediaListToStringArray(dataSet);
-    }
-    private static String[] ConvertMediaListToStringArray(ResultSet DataSet) throws SQLException {
-        List<String> dataList = new ArrayList<String>();
-        while (DataSet.next()) { dataList.add(DataSet.getString(1)); }
-
-        String[] dataStringArray = new String[dataList.size()];
-        dataList.toArray(dataStringArray);
-        return dataStringArray;
-    }
-
-    public static String[] GetMediaDescription(String itemName) throws SQLException, ClassNotFoundException {
-        Connect();
-        String[] ItemDescription = SQL_GetItemDescription(itemName);
+        String[] ItemDescription = SQL_GetRequestDescription(GetRequestID(requestName));
+        System.out.println("hehoo: " + Arrays.toString(ItemDescription));
         Disconnect();
         return ItemDescription;
     }
-    private static String[] SQL_GetItemDescription(String itemName) throws SQLException {
-        String query = "SELECT AddedBy, UploadDate, Location FROM media WHERE Name='" + itemName + "';";
+    private static String[] SQL_GetRequestDescription(int requestID) throws SQLException {
+        //todo; query returns null; check the connection between the tables (joint) ..
+        String query = "SELECT stu.CIN, stu.N_apogee, stu.email, req.Doc_type" +
+                " FROM request req JOIN student stu ON req.N_apogee = stu.N_apogee" +
+                " WHERE req.id='" + requestID + "';";
         ResultSet dataSet = Session.createStatement().executeQuery(query);
-        return ConvertItemDescriptionToStringArray(dataSet);
+        return ConvertDataSetToStringArray(dataSet);
     }
-    private static String[] ConvertItemDescriptionToStringArray(ResultSet dataSet) throws SQLException {
-        List<String> dataList = new ArrayList<String>();
-        int i = 1;
-        if (dataSet.next()) {
-            int dataSetSize = dataSet.getMetaData().getColumnCount();
-            while (i <= dataSetSize) { dataList.add(dataSet.getString(i++)); }
+    private static String[] ConvertDataSetToStringArray(ResultSet dataSet) throws SQLException {
+        String[] requestInfo = new String[]{"fill", "fill", "fill", "fill"};
 
-            String[] dataStringArray = new String[dataList.size()];
-            dataList.toArray(dataStringArray);
-            return dataStringArray;
+        for (int i = 0; i < requestInfo.length && dataSet.next(); i++) {
+            requestInfo[i] = dataSet.getString(i);
+            System.out.println("-----> " + requestInfo[i]);
         }
-        return new String[4];
-    }
 
-    public static void AddMedia(String[] mediaData) throws SQLException, ClassNotFoundException {
+        return requestInfo;
+    }
+    //</editor-fold>
+    //<editor-fold desc="Accept/Decline 'Request's">
+    public static void ManageRequest(String requestName, boolean accepted) throws SQLException, ClassNotFoundException {
         Connect();
-        SQL_AddMedia(mediaData);
+        SQL_ManageRequest(GetRequestID(requestName), accepted);
         Disconnect();
     }
-    private static void SQL_AddMedia(String[] mediaData) throws SQLException {
-        String query = "INSERT INTO media(Name, AddedBy, UploadDate, Location) " +
-                "VALUES ('" + mediaData[0] + "', '" + mediaData[1] + "'," +
-                "'" + mediaData[2] + "', '" + mediaData[3] + "');";
+    private static void SQL_ManageRequest(int id, boolean accepted) throws SQLException {
+        String query = "UPDATE request SET accepted = "+ accepted +" WHERE id = " + id + ";";
         Session.createStatement().executeUpdate(query);
     }
-
-    public static void EditMedia(String mediaName, String newMediaName) throws SQLException, ClassNotFoundException {
-        Connect();
-        int id = SQL_GetMediaID(mediaName);
-        SQL_EditMedia(id, newMediaName);
-        Disconnect();
-    }
-    private static int SQL_GetMediaID(String mediaName) throws SQLException {
-        String query = "SELECT ID FROM media WHERE Name = '" + mediaName + "';";
-        ResultSet dataSet = Session.createStatement().executeQuery(query);
-        dataSet.next();
-        return dataSet.getInt(1);
-    }
-    private static void SQL_EditMedia(int mediaID, String newMediaName) throws SQLException {
-        String query = "UPDATE media SET Name='" + newMediaName + "' WHERE ID='" + mediaID +"';";
-        Session.createStatement().executeUpdate(query);
-    }
-
-    public static void DeleteMedia(String mediaName) throws SQLException, ClassNotFoundException {
-        Connect();
-        SQL_DeleteMedia(mediaName);
-        Disconnect();
-    }
-    private static void SQL_DeleteMedia(String mediaName) throws SQLException {
-        String query = "DELETE FROM media WHERE Name='" + mediaName + "';";
-        Session.createStatement().executeUpdate(query);
-    }
+    //</editor-fold>
 
     public static class UserNotFoundException extends Exception { UserNotFoundException(String s){ super(s);}}
     public static class UserAlreadyExistException extends Exception { UserAlreadyExistException(String s){ super(s);}}

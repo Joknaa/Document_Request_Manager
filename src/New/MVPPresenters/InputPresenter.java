@@ -1,16 +1,9 @@
 package New.MVPPresenters;
 
-import New.MVPViews.UI.MainPanel;
-
-import static New.MVPViews.OutputView.*;
 import static New.MVPPresenters.DataBasePresenter.*;
-import static javax.swing.JOptionPane.PLAIN_MESSAGE;
-import static javax.swing.JOptionPane.showInputDialog;
-
+import static New.MVPViews.OutputView.*;
+import New.MVPViews.UI.MainPanel;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import javax.swing.*;
 
 public class InputPresenter {
     public static void Try_SignUp(String login, String password, String passwordRepeat) {
@@ -35,7 +28,6 @@ public class InputPresenter {
         if (!password.equals(passwordRepeat))
             throw new PasswordMismatchException("Password doesnt match");
     }
-
     public static void Try_SignIn(String login, String password) {
         try {
             Check_NoEmptyFieldsExist(login, password);
@@ -48,77 +40,15 @@ public class InputPresenter {
         }
     }
 
-    public static String[] Try_AddMedia(DefaultListModel<String> listModel) {
-        String[] mediaData = new String[]{};
+    public static void Try_ManageRequest(boolean accepted, String requestName) {
         try {
-            mediaData = GetDataFromFile(listModel);
-            AddMedia(mediaData);
-        } catch (SQLException | ClassNotFoundException | NullPointerException | MediaNameAlreadyExistException e){
-            DisplayError(e.getMessage());
-        }
-        return mediaData;
-    }
-    private static String[] GetDataFromFile(DefaultListModel<String> listModel) throws NullPointerException, MediaNameAlreadyExistException {
-        JFileChooser chooser = new JFileChooser();
-        chooser.showOpenDialog(null);
-
-        if (chooser.getSelectedFile() == null)
-            throw new NullPointerException("No file has been selected");
-
-        if (listModel.contains(chooser.getSelectedFile().getName()))
-            throw new MediaNameAlreadyExistException("This file name already exist in the list");
-
-        return new String[] {
-                chooser.getSelectedFile().getName(),
-                UserPresenter.GetCurrentUser(),
-                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
-                chooser.getSelectedFile().getAbsolutePath().replaceAll("\\\\", "\\\\\\\\")
-        };
-    }
-
-    public static String Try_EditMedia(String selectedMediaName, String[] listContent) {
-        String newMediaName = "";
-        try {
-            newMediaName = GetNewMediaNameInput(listContent);
-            EditMedia(selectedMediaName, newMediaName);
-        } catch (SQLException | ClassNotFoundException | EmptyInputFieldException | MediaNameAlreadyExistException e) {
-            DisplayError(e.getMessage());
-        }
-        return newMediaName;
-    }
-    public static void Try_DeleteMedia(String mediaName) {
-        try {
-            DeleteMedia(mediaName);
-        } catch (SQLException | ClassNotFoundException e) {
+            ManageRequest(requestName, accepted);
+        } catch (SQLException | ClassNotFoundException | NullPointerException e){
             DisplayError(e.getMessage());
         }
     }
-
-    public static String GetNewMediaNameInput(String[] listContent)
-            throws EmptyInputFieldException, MediaNameAlreadyExistException {
-        String newMediaName = GetNewItemNameInput();
-
-        if (newMediaName == null || newMediaName.trim().isEmpty())
-            throw new EmptyInputFieldException("Invalid name !");
-
-        for (String name : listContent) {
-            if (name.equals(newMediaName))
-                throw new MediaNameAlreadyExistException("There is already an item with the same name");
-        }
-        return newMediaName;
-    }
-
-    private static String GetNewItemNameInput() {
-        return DisplayInputDialog();
-    }
-    public static String DisplayInputDialog() {
-        return showInputDialog(null, "Enter the new item name",
-                "Editing item", PLAIN_MESSAGE);
-    }
-
 
     public static class EmptyInputFieldException extends Exception { EmptyInputFieldException(String s){ super(s);}}
     public static class InputTooShortException extends Exception { InputTooShortException(String s){ super(s);}}
-    public static class MediaNameAlreadyExistException extends Exception { MediaNameAlreadyExistException(String s){ super(s);}}
     public static class PasswordMismatchException extends Exception { PasswordMismatchException(String s){ super(s);}}
 }

@@ -2,6 +2,7 @@ package New.MVPViews.UI;
 
 import static New.MVPViews.OutputView.*;
 import javax.swing.*;
+import static New.MVPViews.OutputView.SetupMainPanelLayout;
 import static javax.swing.GroupLayout.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -15,7 +16,7 @@ public class LoginPanel extends JPanel implements IPanel, ActionListener {
     private final JLabel LogoIconLabel = new JLabel(new ImageIcon("Resources/library_120px.png"));
     private final JLabel passwordLabel = new JLabel(new ImageIcon("Resources/lock_30px.png"));
     private final JLabel loginLabel = new JLabel(new ImageIcon("Resources/user_30px.png"));
-    private final JLabel LogoTextLabel = new JLabel("Multimedia Library");
+    private final JLabel LogoTextLabel = new JLabel("Request Manager");
     private final JButton signInButton = new JButton("Sign In");
     private final JButton signUpButton = new JButton("Sign Up");
     private final JButton closeButton = new JButton("X");
@@ -26,7 +27,7 @@ public class LoginPanel extends JPanel implements IPanel, ActionListener {
     public LoginPanel() {
         SetupLogoPanel();
         SetupInputPanel();
-        SetupMainPanel();
+        SetupMainPanelLayout(logoPanel, inputPanel, this);
     }
 
     private void SetupLogoPanel() {
@@ -47,18 +48,6 @@ public class LoginPanel extends JPanel implements IPanel, ActionListener {
         SetupSubmitButton(signUpButton, this, true, "Click to creat an account");
         SetupCloseButton(closeButton);
         SetupInputPanelLayout();
-    }
-    private void SetupSeparators(JSeparator... separators) {
-        for (JSeparator separator : separators) {
-            separator.setBackground(BLUE_HAZE);
-        }
-    }
-    private void SetupInputFields(JTextField... inputFields) {
-        for (JTextField inputField : inputFields) {
-            inputField.setBackground(BLUE_BAYOUX);
-            inputField.setForeground(BLUE_HAZE);
-            inputField.setBorder(null);
-        }
     }
     private void SetupInputPanelLayout() {
         var inputPanelLayout = new GroupLayout(inputPanel);
@@ -113,28 +102,6 @@ public class LoginPanel extends JPanel implements IPanel, ActionListener {
                         .addGap(194, 194, 194))
         );
     }
-
-    private void SetupMainPanel() {
-        SetupMainPanelLayout();
-    }
-    private void SetupMainPanelLayout() {
-        var mainPanelLayout = new GroupLayout(this);
-
-        this.setLayout(mainPanelLayout);
-        mainPanelLayout.setHorizontalGroup(
-                mainPanelLayout.createParallelGroup(Alignment.LEADING)
-                        .addGroup(mainPanelLayout.createSequentialGroup()
-                                .addComponent(logoPanel, PREFERRED_SIZE, DEFAULT_SIZE, PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(inputPanel, PREFERRED_SIZE, DEFAULT_SIZE, PREFERRED_SIZE))
-        );
-        mainPanelLayout.setVerticalGroup(
-                mainPanelLayout.createParallelGroup(Alignment.LEADING)
-                        .addComponent(logoPanel, DEFAULT_SIZE, DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(inputPanel, DEFAULT_SIZE, DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-    }
-
 
     @Override
     public JPanel GetPanel() { return this; }

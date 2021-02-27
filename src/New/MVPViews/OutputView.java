@@ -1,11 +1,10 @@
 package New.MVPViews;
 
 import static New.MVPPresenters.OutputPresenter.*;
-import static javax.swing.GroupLayout.DEFAULT_SIZE;
-import static javax.swing.JOptionPane.*;
 import static New.MVPPresenters.InputPresenter.*;
 import New.MVPPresenters.OutputPresenter;
-import New.MVPPresenters.UserPresenter;
+import static javax.swing.GroupLayout.*;
+import static javax.swing.JOptionPane.*;
 import New.MVPViews.UI.*;
 import javax.swing.*;
 import java.awt.*;
@@ -19,20 +18,23 @@ public class OutputView {
     public static final IPanel mainPanel = new MainPanel();
     public static final IPanel loginPanel = new LoginPanel();
     public static final IPanel signUpPanel = new SignupPanel();
+    public static final IPanel studentPanel = new StudentPanel();
+    public static final IPanel startingPanel = new StartingPanel();
 
     public static void SetUpGUI() {
         appFrame.SetupOnTimeConfiguration();
-        appFrame.SetCurrentPanel(new LoginPanel());
+        appFrame.SetCurrentPanel(new StartingPanel());
     }
 
+    //<editor-fold desc="On-Event Actions">
     public static void OnClick_Logout(){
-        UserPresenter.LogOut();
-        OnClick_SwapPanels(loginPanel);
+        LogOut();
+        OnClick_SwapPanels(startingPanel);
     }
-    public static void OnClick_SignUp(JTextField login, JPasswordField password, JPasswordField passwordRepeat) {
+    public static void OnClick_SignUp(JTextField login, JTextField password, JTextField passwordRepeat) {
         String strLogin = login.getText().trim();
-        String strPassword = String.valueOf(password.getPassword()).trim();
-        String strPasswordRepeat = String.valueOf(passwordRepeat.getPassword()).trim();
+        String strPassword = password.getText().trim();
+        String strPasswordRepeat = passwordRepeat.getText().trim();
         Try_SignUp(strLogin, strPassword, strPasswordRepeat);
     }
     public static void OnClick_SignIn(JTextField login, JPasswordField password){
@@ -43,47 +45,23 @@ public class OutputView {
     public static void OnClick_SwapPanels(IPanel gotoPanel){
         appFrame.GetCurrentPanel().setVisible(false);
         appFrame.SetCurrentPanel(gotoPanel);}
-    public static void OnListSelection_UpdateDescription(String selectedValue, JTable descriptionTable) {
-        String[] ItemDescription = Try_GetMediaDescription(selectedValue);
+    public static void OnListSelection_UpdateDescription(String requestName, JTable descriptionTable) {
+        String[] documentDescription = Try_GetRequestDescription(requestName);
 
         descriptionTable.getCellEditor(0, 1);
-        descriptionTable.setValueAt(selectedValue, 0, 1);
-        descriptionTable.setValueAt(ItemDescription[0], 1, 1);
-        descriptionTable.setValueAt(ItemDescription[1], 2, 1);
-        descriptionTable.setValueAt(ItemDescription[2], 3, 1);
+        descriptionTable.setValueAt(documentDescription[0], 1, 1);
+        descriptionTable.setValueAt(documentDescription[1], 2, 1);
+        descriptionTable.setValueAt(documentDescription[2], 3, 1);
+        descriptionTable.setValueAt(documentDescription[3], 3, 1);
     }
-    public static void OnClick_AddMedia(DefaultListModel<String> listModel, JTable descriptionTable){
-        String[] mediaData = Try_AddMedia(listModel);
-        if (mediaData == null || mediaData.length == 0) return;
-        OnListSelection_UpdateDescription(mediaData[0], descriptionTable);
-        listModel.addElement(mediaData[0]);
+    public static void OnClick_ManageRequest(boolean accepted, JList<String> list, DefaultListModel<String> listModel){
+        String requestName = list.getSelectedValue();
+        Try_ManageRequest(accepted, requestName);
+        listModel.removeElementAt(list.getSelectedIndex());
     }
-    public static void OnClick_EditMedia(JList<String> list, DefaultListModel<String> listModel, JTable descriptionTable){
-        String[] listContent = ConvertListContentToStringArray(listModel);
-        String newItemName = Try_EditMedia(list.getSelectedValue(), listContent);
-        if (newItemName == null || newItemName.length() == 0) return;
-        OnListSelection_UpdateDescription(newItemName, descriptionTable);
-        listModel.setElementAt(newItemName, list.getSelectedIndex());
-    }
-    public static void OnClick_DeleteMedia(JList<String> list, DefaultListModel<String> listModel, JButton deleteButton){
-        int response = DisplayConfirmation();
-        if (response == 0) {
-            Try_DeleteMedia(list.getSelectedValue());
-            listModel.removeElementAt(list.getSelectedIndex());
-            deleteButton.setEnabled(false);
-        }
-    }
+    //</editor-fold>
 
-    private static String[] ConvertListContentToStringArray(DefaultListModel<String> listModel) {
-        String[] listContent = new String[listModel.getSize()];
-        for (int i = 0; i < listContent.length; i++) {
-            listContent[i] = String.valueOf(listModel.getElementAt(i));
-        }
-        return listContent;
-    }
-    public static String[] GetListContent() {return Try_FillList(); };
-    public static String GetCurrentUser(){ return OutputPresenter.GetCurrentUser(); }
-
+    //<editor-fold desc="Setting up Common JFrame Components">
     public static void SetupCloseButton(JButton closeButton){
         closeButton.setBackground(BLUE_BAYOUX);
         closeButton.setFont(new java.awt.Font("Source Code Pro", Font.PLAIN, 24));
@@ -133,18 +111,18 @@ public class OutputView {
 
         logoPanel.setLayout(logoPanelLayout);
         logoPanelLayout.setHorizontalGroup(
-                logoPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                logoPanelLayout.createParallelGroup(Alignment.LEADING)
                         .addGroup(logoPanelLayout.createSequentialGroup()
                                 .addGap(165, 165, 165)
                                 .addComponent(LogoIconPanel)
                                 .addContainerGap(DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(GroupLayout.Alignment.TRAILING, logoPanelLayout.createSequentialGroup()
+                        .addGroup(Alignment.TRAILING, logoPanelLayout.createSequentialGroup()
                                 .addContainerGap(105, Short.MAX_VALUE)
                                 .addComponent(LogoTextPanel)
                                 .addGap(93, 93, 93))
         );
         logoPanelLayout.setVerticalGroup(
-                logoPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                logoPanelLayout.createParallelGroup(Alignment.LEADING)
                         .addGroup(logoPanelLayout.createSequentialGroup()
                                 .addContainerGap(138, Short.MAX_VALUE)
                                 .addComponent(LogoIconPanel)
@@ -153,7 +131,37 @@ public class OutputView {
                                 .addGap(193, 193, 193))
         );
     }
+    public static void SetupMainPanelLayout(JPanel leftHalf, JPanel rightHalf, JPanel hostPanel) {
+        var mainPanelLayout = new GroupLayout(hostPanel);
 
+        hostPanel.setLayout(mainPanelLayout);
+        mainPanelLayout.setHorizontalGroup(
+                mainPanelLayout.createParallelGroup(Alignment.LEADING)
+                        .addGroup(mainPanelLayout.createSequentialGroup()
+                                .addComponent(leftHalf, PREFERRED_SIZE, DEFAULT_SIZE, PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(rightHalf, PREFERRED_SIZE, DEFAULT_SIZE, PREFERRED_SIZE))
+        );
+        mainPanelLayout.setVerticalGroup(
+                mainPanelLayout.createParallelGroup(Alignment.LEADING)
+                        .addComponent(leftHalf, DEFAULT_SIZE, DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(rightHalf, DEFAULT_SIZE, DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+    }
+    public static void SetupHeaderTextArea(JTextArea textArea) {
+        textArea.setEditable(false);
+        textArea.setBackground(PICKLED_BLUEWOOD);
+        textArea.setColumns(5);
+        textArea.setFont(new Font("Source Code Pro", Font.PLAIN, 30));
+        textArea.setForeground(BLUE_BAYOUX);
+        textArea.setRows(1);
+        textArea.setTabSize(1);
+        textArea.setAutoscrolls(false);
+        textArea.setFocusable(false);
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="Displaying Dialog Windows">
     public static void DisplayInformation(String greeting) {
         showMessageDialog(null, greeting, "Greeting", INFORMATION_MESSAGE);
     }
@@ -164,9 +172,10 @@ public class OutputView {
         return JOptionPane.showConfirmDialog(null, "You sure you wanna delete this ?",
                 "Confirmation", YES_NO_OPTION);
     }
+    //</editor-fold>
 
+    public static String[] GetListContent() {return Try_FillList(); };
+    public static String GetCurrentUser(){ return OutputPresenter.GetCurrentUser(); }
 
-    public static class OnMouseClick_CloseApp extends MouseAdapter {
-        public void mouseClicked(MouseEvent e) { System.exit(0); }
-    }
+    public static class OnMouseClick_CloseApp extends MouseAdapter { public void mouseClicked(MouseEvent e) { System.exit(0); }}
 }

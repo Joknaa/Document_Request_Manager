@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
 -- Table structure for table `document`
 --
 
-DROP TABLE IF EXISTS `document`;
+DROP TABLE IF EXISTS request;
 CREATE TABLE IF NOT EXISTS `document` (
   `id` int(6) NOT NULL AUTO_INCREMENT,
   `type` varchar(32) NOT NULL,
