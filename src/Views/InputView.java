@@ -1,4 +1,4 @@
-package GLProject.src.Views;
+package Views;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;

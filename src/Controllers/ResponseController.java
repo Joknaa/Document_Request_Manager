@@ -1,9 +1,9 @@
-package GLProject.src.Controllers;
+package Controllers;
 
-import GLProject.src.Models.EmailResponseModel;
-import GLProject.src.Models.IDocumentModel;
-import GLProject.src.Models.IResponseModel;
-import GLProject.src.Models.RequestModel;
+import Models.EmailResponseModel;
+import Models.IDocumentModel;
+import Models.IResponseModel;
+import Models.RequestModel;
 
 public class ResponseController {
 

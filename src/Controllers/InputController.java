@@ -1,7 +1,7 @@
-package GLProject.src.Controllers;
+package Controllers;
 
-import static GLProject.src.Controllers.OutputController.*;
-import GLProject.src.Views.InputView;
+import static Controllers.OutputController.*;
+import Views.InputView;
 import java.util.InputMismatchException;
 
 public class InputController {

@@ -1,4 +1,4 @@
-package GLProject.src.Views;
+package Views;
 
 public class OutputView {
 

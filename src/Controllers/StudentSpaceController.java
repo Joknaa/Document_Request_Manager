@@ -1,8 +1,8 @@
-package GLProject.src.Controllers;
+package Controllers;
 
-import static GLProject.src.Controllers.OutputController.*;
-import static GLProject.src.Controllers.InputController.*;
-import static GLProject.src.Controllers.RequestController.*;
+import static Controllers.OutputController.*;
+import static Controllers.InputController.*;
+import static Controllers.RequestController.*;
 
 public class StudentSpaceController {
     private static int option = 1;

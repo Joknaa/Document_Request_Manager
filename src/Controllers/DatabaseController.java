@@ -1,6 +1,6 @@
-package GLProject.src.Controllers;
+package Controllers;
 
-import GLProject.src.Models.DatabaseModel;
+import Models.DatabaseModel;
 import javax.swing.*;
 import java.sql.*;
 

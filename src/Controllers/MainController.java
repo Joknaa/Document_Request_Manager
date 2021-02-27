@@ -1,4 +1,4 @@
-package GLProject.src.Controllers;
+package Controllers;
 
 public class MainController {
     public static void Run(){

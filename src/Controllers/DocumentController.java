@@ -1,8 +1,8 @@
-package GLProject.src.Controllers;
+package Controllers;
 
-import GLProject.src.Models.IDocumentModel;
-import GLProject.src.Models.SchoolCertificateModel;
-import GLProject.src.Models.TranscriptModel;
+import Models.IDocumentModel;
+import Models.SchoolCertificateModel;
+import Models.TranscriptModel;
 import java.util.ArrayList;
 import java.util.List;
 

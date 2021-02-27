@@ -1,7 +1,7 @@
-package GLProject.src.Controllers;
+package Controllers;
 
-import static GLProject.src.Controllers.OutputController.DisplayError;
-import static GLProject.src.Controllers.StudentController.*;
+import static Controllers.OutputController.DisplayError;
+import static Controllers.StudentController.*;
 import java.util.HashMap;
 
 public class DataAccessController {

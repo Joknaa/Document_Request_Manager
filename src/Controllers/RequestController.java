@@ -1,11 +1,11 @@
-package GLProject.src.Controllers;
+package Controllers;
 
-import static GLProject.src.Controllers.DataAccessController.*;
-import static GLProject.src.Controllers.DocumentController.*;
-import static GLProject.src.Controllers.InputController.Try_GetStringInput;
-import static GLProject.src.Controllers.OutputController.*;
-import static GLProject.src.Controllers.InputController.*;
-import GLProject.src.Models.RequestModel;
+import static Controllers.DataAccessController.*;
+import static Controllers.DocumentController.*;
+import static Controllers.InputController.Try_GetStringInput;
+import static Controllers.OutputController.*;
+import static Controllers.InputController.*;
+import Models.RequestModel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

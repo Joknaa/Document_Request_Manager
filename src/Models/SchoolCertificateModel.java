@@ -1,4 +1,4 @@
-package GLProject.src.Models;
+package Models;
 
 public class SchoolCertificateModel implements IDocumentModel{
     private int id;
