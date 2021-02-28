@@ -45,7 +45,6 @@ public class MainPanel extends JPanel implements IPanel, ActionListener {
         headerPanel.setBackground(PICKLED_BLUEWOOD);
         headerPanel.setPreferredSize(new Dimension(450, 500));
     }
-
     private void SetupHeaderPanelLayout() {
         GroupLayout LogoPanelLayout = new GroupLayout(headerPanel);
         headerPanel.setLayout(LogoPanelLayout);

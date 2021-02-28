@@ -818,7 +818,6 @@ SELECT|sys.sys_config
       <Position>1</Position>
       <DataType>int(16)|0s</DataType>
       <NotNull>1</NotNull>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="248" parent="236" name="CIN">
       <Position>2</Position>

@@ -14,14 +14,15 @@ public class StartingPanel extends JPanel implements IPanel, ActionListener {
     //<editor-fold desc="Variables Declarations">
     private final JPanel studentLogoPanel = new JPanel();
     private final JPanel teacherLogoPanel = new JPanel();
-    private final JLabel studentLogo = new JLabel(new ImageIcon("Resources/student_male2_127px BAYOUX.png"));
+    private final JLabel studentLogo = new JLabel(new ImageIcon("Resources/Stu_minim_127_BAYOUX.png"));
     private final JLabel headerLogo = new JLabel(new ImageIcon("Resources/library_120px.png"));
-    private final JLabel teacherLogo = new JLabel(new ImageIcon("Resources/teacher2_127px.png"));
+    private final JLabel teacherLogo = new JLabel(new ImageIcon("Resources/Tch_minim_127_WOODBLUE.png"));
     private final JTextArea headerTextArea = new JTextArea("Request\nManager");
     private final JButton closeButton = new JButton("X");
     //</editor-fold>
 
     public StartingPanel() {
+        this.setPreferredSize(new Dimension(900, 500));
         SetupStudentLogoPanel();
         SetupTeacherLogoPanel();
         SetupMainPanelLayout(studentLogoPanel, teacherLogoPanel, this);
@@ -33,7 +34,10 @@ public class StartingPanel extends JPanel implements IPanel, ActionListener {
         SetupStudentLogoPanelLayout();
     }
     private void SetupStudentLogo() {
+        studentLogo.setToolTipText("Click to access the Student Space");
         studentLogo.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent event) { OnHover_SwapIcons(studentLogo, "Resources/Stu_minim_127_HAZE.png"); }
+            public void mouseExited(MouseEvent event) { OnHover_SwapIcons(studentLogo, "Resources/Stu_minim_127_BAYOUX.png"); }
             public void mouseClicked(MouseEvent event) { OnClick_SwapPanels(studentPanel); }
         });
     }
@@ -67,15 +71,16 @@ public class StartingPanel extends JPanel implements IPanel, ActionListener {
         setupTeacherLogo();
         SetupCloseButton(closeButton);
         SetupHeaderTextArea();
-        SetupTeacherInputPanelLayout();
+        SetupTeacherPanelLayout();
     }
-
     private void setupTeacherLogo() {
+        teacherLogo.setToolTipText("Click to access the Admin Space");
         teacherLogo.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent event) { OnHover_SwapIcons(teacherLogo, "Resources/Tch_minim_127_HAZE.png"); }
+            public void mouseExited(MouseEvent event) { OnHover_SwapIcons(teacherLogo, "Resources/Tch_minim_127_WOODBLUE.png"); }
             public void mouseClicked(MouseEvent event) { OnClick_SwapPanels(loginPanel); }
         });
     }
-
     private void SetupHeaderTextArea() {
         headerTextArea.setFont(new Font("Source Code Pro", Font.PLAIN, 30));
         headerTextArea.setForeground(PICKLED_BLUEWOOD);
@@ -87,7 +92,7 @@ public class StartingPanel extends JPanel implements IPanel, ActionListener {
         headerTextArea.setColumns(5);
         headerTextArea.setRows(1);
     }
-    private void SetupTeacherInputPanelLayout() {
+    private void SetupTeacherPanelLayout() {
         var teacherLogoPanelLayout = new GroupLayout(teacherLogoPanel);
 
         teacherLogoPanel.setLayout(teacherLogoPanelLayout);

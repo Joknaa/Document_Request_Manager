@@ -21,6 +21,7 @@ public class StudentPanel extends JPanel implements IPanel, ActionListener {
     private final JLabel emailLabel = new JLabel("Email");
     private final JButton submitButton = new JButton("Submit");
     private final JButton closeButton = new JButton("X");
+    private final JButton backButton = new JButton("Back");
     private final JRadioButton transcriptRadioB = new JRadioButton("Transcript");
     private final JRadioButton certificateRadioB = new JRadioButton("Certificate");
     private final JTextField cinField = new JTextField();
@@ -46,14 +47,16 @@ public class StudentPanel extends JPanel implements IPanel, ActionListener {
     }
     //</editor-fold>
 
+    //<editor-fold desc="Input Panel">
     private void SetupInputPanel() {
         inputPanel.setBackground(BLUE_BAYOUX);
+        SetupCloseButton(closeButton);
         SetupLabels(cinLabel, apogeLabel, emailLabel);
         SetupInputFields(cinField, apogeField, emailField);
         SetupSeparators(cinSeparator, apogeSeparator, emailSeparator);
         SetupRadioButtons(transcriptRadioB, certificateRadioB);
         SetupSubmitButton(submitButton, this, true,"Click to creat an account");
-        SetupCloseButton(closeButton);
+        SetupSubmitButton(backButton, this, true, "Back to starting page");
         SetupInputPanelLayout();
     }
     private void SetupLabels(JLabel... labels) {
@@ -74,17 +77,20 @@ public class StudentPanel extends JPanel implements IPanel, ActionListener {
         var inputPanelLayout = new GroupLayout(inputPanel);
 
         inputPanel.setLayout(inputPanelLayout);
+        inputPanel.setLayout(inputPanelLayout);
         inputPanelLayout.setHorizontalGroup(
                 inputPanelLayout.createParallelGroup(Alignment.LEADING)
                         .addGroup(Alignment.TRAILING, inputPanelLayout.createSequentialGroup()
-                                .addContainerGap(DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap(177, Short.MAX_VALUE)
                                 .addGroup(inputPanelLayout.createParallelGroup(Alignment.LEADING)
                                         .addGroup(Alignment.TRAILING, inputPanelLayout.createSequentialGroup()
                                                 .addComponent(closeButton, PREFERRED_SIZE, 21, PREFERRED_SIZE)
                                                 .addGap(8, 8, 8))
                                         .addGroup(Alignment.TRAILING, inputPanelLayout.createSequentialGroup()
-                                                .addComponent(submitButton, PREFERRED_SIZE, DEFAULT_SIZE, PREFERRED_SIZE)
-                                                .addGap(174, 174, 174))))
+                                                .addGroup(inputPanelLayout.createParallelGroup(Alignment.TRAILING)
+                                                        .addComponent(backButton, PREFERRED_SIZE, DEFAULT_SIZE, PREFERRED_SIZE)
+                                                        .addComponent(submitButton, PREFERRED_SIZE, DEFAULT_SIZE, PREFERRED_SIZE))
+                                                .addGap(160, 160, 160))))
                         .addGroup(inputPanelLayout.createSequentialGroup()
                                 .addGroup(inputPanelLayout.createParallelGroup(Alignment.LEADING)
                                         .addGroup(inputPanelLayout.createSequentialGroup()
@@ -125,30 +131,34 @@ public class StudentPanel extends JPanel implements IPanel, ActionListener {
                                 .addComponent(closeButton, PREFERRED_SIZE, 23, PREFERRED_SIZE)
                                 .addGap(74, 74, 74)
                                 .addGroup(inputPanelLayout.createParallelGroup(Alignment.TRAILING)
-                                        .addComponent(cinField, PREFERRED_SIZE, 25, PREFERRED_SIZE)
+                                        .addComponent(cinField, PREFERRED_SIZE, 40, PREFERRED_SIZE)
                                         .addComponent(cinLabel))
                                 .addComponent(cinSeparator, PREFERRED_SIZE, 10, PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addGroup(inputPanelLayout.createParallelGroup(Alignment.TRAILING)
-                                        .addComponent(apogeField, PREFERRED_SIZE, 25, PREFERRED_SIZE)
+                                        .addComponent(apogeField, PREFERRED_SIZE, 39, PREFERRED_SIZE)
                                         .addComponent(apogeLabel))
                                 .addGap(0, 0, 0)
                                 .addComponent(apogeSeparator, PREFERRED_SIZE, 13, PREFERRED_SIZE)
                                 .addGap(27, 27, 27)
                                 .addGroup(inputPanelLayout.createParallelGroup(Alignment.TRAILING)
-                                        .addComponent(emailField, PREFERRED_SIZE, 25, PREFERRED_SIZE)
+                                        .addComponent(emailField, PREFERRED_SIZE, 39, PREFERRED_SIZE)
                                         .addComponent(emailLabel))
                                 .addGap(0, 0, 0)
                                 .addComponent(emailSeparator, PREFERRED_SIZE, 13, PREFERRED_SIZE)
-                                .addGap(32, 32, 32)
+                                .addGap(18, 18, 18)
                                 .addGroup(inputPanelLayout.createParallelGroup(Alignment.BASELINE)
                                         .addComponent(transcriptRadioB)
                                         .addComponent(certificateRadioB))
                                 .addGap(18, 18, 18)
-                                .addComponent(submitButton, DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                                .addGap(123, 123, 123))
+                                .addComponent(submitButton, DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                                //.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(25, 25, 25)
+                                .addComponent(backButton, PREFERRED_SIZE, 25, PREFERRED_SIZE)
+                                .addGap(44, 44, 44))
         );
     }
+    //</editor-fold>
 
     @Override
     public JPanel GetPanel() { return this; }
@@ -160,6 +170,8 @@ public class StudentPanel extends JPanel implements IPanel, ActionListener {
     public void actionPerformed(ActionEvent event) {
         if (event.getSource().equals(submitButton))
             System.out.println("form submitted");
+        else if (event.getSource().equals(backButton))
+            OnClick_SwapPanels(startingPanel);
         else if (event.getSource().equals(transcriptRadioB))
             certificateRadioB.setSelected(false);
         else if (event.getSource().equals(certificateRadioB))

@@ -9,6 +9,7 @@ import New.MVPViews.UI.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.net.URL;
 
 public class OutputView {
     private static final AppFrame appFrame = new AppFrame();
@@ -58,6 +59,11 @@ public class OutputView {
         String requestName = list.getSelectedValue();
         Try_ManageRequest(accepted, requestName);
         listModel.removeElementAt(list.getSelectedIndex());
+    }
+    public static void OnHover_SwapIcons(JLabel label, String newImageURL){
+        label.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        label.setIcon(new ImageIcon(newImageURL));
+
     }
     //</editor-fold>
 
@@ -117,9 +123,9 @@ public class OutputView {
                                 .addComponent(LogoIconPanel)
                                 .addContainerGap(DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(Alignment.TRAILING, logoPanelLayout.createSequentialGroup()
-                                .addContainerGap(105, Short.MAX_VALUE)
+                                .addContainerGap(122, Short.MAX_VALUE)
                                 .addComponent(LogoTextPanel)
-                                .addGap(93, 93, 93))
+                                .addGap(118, 118, 118))
         );
         logoPanelLayout.setVerticalGroup(
                 logoPanelLayout.createParallelGroup(Alignment.LEADING)
