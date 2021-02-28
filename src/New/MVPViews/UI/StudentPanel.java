@@ -168,11 +168,11 @@ public class StudentPanel extends JPanel implements IPanel, ActionListener {
     public void Deactivate(){ this.setVisible(false);}
     @Override
     public void actionPerformed(ActionEvent event) {
-        if (event.getSource().equals(submitButton))
+        if (event.getSource().equals(submitButton)) {
             OnClick_SaveRequest(cinField, apogeField, emailField, transcriptRadioB, certificateRadioB);
+        }
         else if (event.getSource().equals(backButton)){
-            //todo; add a function that resets the panel before exiting it
-            OnClick_SwapPanels(startingPanel);
+            OnClick_SwapPanels(studentPanel, startingPanel);
 
         }
         else if (event.getSource().equals(transcriptRadioB)) {
@@ -184,4 +184,5 @@ public class StudentPanel extends JPanel implements IPanel, ActionListener {
             submitButton.setEnabled(true);
         }
     }
+
 }

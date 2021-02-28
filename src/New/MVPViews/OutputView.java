@@ -9,9 +9,10 @@ import New.MVPViews.UI.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.net.URL;
+import java.util.Arrays;
 
 public class OutputView {
+    private static boolean listSelectionListener_IsActive = true;
     private static final AppFrame appFrame = new AppFrame();
     public static final Color PICKLED_BLUEWOOD = new Color(52, 66, 91);
     public static final Color BLUE_BAYOUX = new Color(76, 96, 133);
@@ -30,7 +31,7 @@ public class OutputView {
     //<editor-fold desc="On-Event Actions">
     public static void OnClick_Logout(){
         LogOut();
-        OnClick_SwapPanels(startingPanel);
+        OnClick_SwapPanels(mainPanel,startingPanel);
     }
     public static void OnClick_SignUp(JTextField login, JTextField password, JTextField passwordRepeat) {
         String strLogin = login.getText().trim();
@@ -43,22 +44,37 @@ public class OutputView {
         String strPassword = String.valueOf(password.getPassword());
         Try_SignIn(strLogin, strPassword);
     }
-    public static void OnClick_SwapPanels(IPanel gotoPanel){
+    public static void OnClick_SwapPanels(IPanel fromPanel, IPanel gotoPanel){
         appFrame.GetCurrentPanel().setVisible(false);
-        appFrame.SetCurrentPanel(gotoPanel);}
+        appFrame.SetCurrentPanel(gotoPanel);
+        ResetPanel(fromPanel.GetPanel());
+    }
+
+    private static void ResetPanel(JPanel fromPanel) {
+        for(Component comp : ((JPanel) fromPanel).getComponents()) {
+            if(comp instanceof JTextField)
+                ((JTextField) comp).setText("");
+            else if (comp instanceof JRadioButton)
+                ((JRadioButton) comp).setSelected(false);
+        }
+    }
+
     public static void OnListSelection_UpdateDescription(String requestName, JTable descriptionTable) {
+        if (!listSelectionListener_IsActive) return;
+
         String[] documentDescription = Try_GetRequestDescription(requestName);
 
         descriptionTable.getCellEditor(0, 1);
-        descriptionTable.setValueAt(documentDescription[0], 1, 1);
-        descriptionTable.setValueAt(documentDescription[1], 2, 1);
-        descriptionTable.setValueAt(documentDescription[2], 3, 1);
+        descriptionTable.setValueAt(documentDescription[0], 0, 1);
+        descriptionTable.setValueAt(documentDescription[1], 1, 1);
+        descriptionTable.setValueAt(documentDescription[2], 2, 1);
         descriptionTable.setValueAt(documentDescription[3], 3, 1);
     }
     public static void OnClick_ManageRequest(boolean accepted, JList<String> list, DefaultListModel<String> listModel){
         String requestName = list.getSelectedValue();
+        System.out.println("selected value: " + requestName);
         Try_ManageRequest(accepted, requestName);
-        listModel.removeElementAt(list.getSelectedIndex());
+        RemoveRequest_WhileListenerDisabled(listModel, requestName);
     }
     public static void OnHover_SwapIcons(JLabel label, String newImageURL){
         label.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -172,6 +188,11 @@ public class OutputView {
         textArea.setAutoscrolls(false);
         textArea.setFocusable(false);
     }
+    public static void EmptyAllFields(JTextField... textFields) {
+        for (JTextField field : textFields) {
+            field.setText("");
+        }
+    }
     //</editor-fold>
 
     //<editor-fold desc="Displaying Dialog Windows">
@@ -187,7 +208,16 @@ public class OutputView {
     }
     //</editor-fold>
 
-    public static String[] GetListContent() {return Try_FillList(); };
+    private static void RemoveRequest_WhileListenerDisabled(DefaultListModel<String> listModel, String requestName) {
+        listSelectionListener_IsActive = false;
+        listModel.removeElement(requestName);
+        listSelectionListener_IsActive = true;
+    }
+    public static String[] GetListContent() {
+        String[] listContent = Try_FillList();
+        Arrays.sort(listContent);
+        return listContent;
+    }
     public static String GetCurrentUser(){ return OutputPresenter.GetCurrentUser(); }
 
     public static class OnMouseClick_CloseApp extends MouseAdapter { public void mouseClicked(MouseEvent e) { System.exit(0); }}

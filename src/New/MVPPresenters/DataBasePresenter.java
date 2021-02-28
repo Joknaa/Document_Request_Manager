@@ -45,6 +45,7 @@ public class DataBasePresenter {
     }
     private static void SignIn(String login) { UserPresenter.Login(login); }
     //</editor-fold>
+
     //<editor-fold desc="Loading the 'Request's list !!">
     public static void SetupDataBaseConnection() throws SQLException, ClassNotFoundException {
         Connect();
@@ -81,12 +82,13 @@ public class DataBasePresenter {
         }
     }
     //</editor-fold">
+
+    //<editor-fold desc="Adding 'Request'">
     public static void SaveRequest(String cin, String apoge, String email, String docType) throws SQLException, ClassNotFoundException {
         Connect();
-        System.out.println("test");
         AddRequest(SQL_AddRequestAndGetID(apoge, email, docType));
-        System.out.println("test");
-
+        if (!SQL_Check_StudentExist(cin, apoge))
+            SQL_AddStudent(cin, apoge);
         Disconnect();
     }
     private static int SQL_AddRequestAndGetID(String apoge, String email, String docType) throws SQLException {
@@ -98,12 +100,22 @@ public class DataBasePresenter {
         if (dataSet.next()) return dataSet.getInt(1);
         throw new SQLException("Request couldn't be submitted, try again.");
     }
+    private static boolean SQL_Check_StudentExist(String cin, String apoge) throws SQLException {
+        String query = "SELECT * FROM student WHERE CIN='" + cin + "' AND N_apogee='" + apoge + "';";
+        ResultSet dataSet = Session.createStatement().executeQuery(query);
+        return dataSet.isBeforeFirst();
+    }
+    private static void SQL_AddStudent(String cin, String apoge) throws SQLException {
+        //todo; CIN-Apoge combination need to ba unique. To avoid trouble remove one of them from the form..
+        String query = "INSERT INTO student(CIN, N_apogee) VALUES ('" + cin + "', '" + apoge + "');";
+        Session.createStatement().executeUpdate(query);
+    }
+    //</editor-fold>
 
     //<editor-fold desc="Getting 'Request' data">
     public static String[] GetRequestDescription(String requestName) throws SQLException, ClassNotFoundException {
         Connect();
         String[] ItemDescription = SQL_GetRequestDescription(GetRequestID(requestName));
-        System.out.println("hehoo: " + Arrays.toString(ItemDescription));
         Disconnect();
         return ItemDescription;
     }
@@ -117,23 +129,26 @@ public class DataBasePresenter {
     }
     private static String[] ConvertDataSetToStringArray(ResultSet dataSet) throws SQLException {
         String[] requestInfo = new String[]{"fill", "fill", "fill", "fill"};
+        dataSet.next();
 
-        for (int i = 0; i < requestInfo.length && dataSet.next(); i++) {
-            requestInfo[i] = dataSet.getString(i);
-            System.out.println("-----> " + requestInfo[i]);
+        for (int i = 0; i < requestInfo.length; i++) {
+            requestInfo[i] = dataSet.getString(i + 1);
         }
 
         return requestInfo;
     }
     //</editor-fold>
+
     //<editor-fold desc="Accept/Decline 'Request's">
     public static void ManageRequest(String requestName, boolean accepted) throws SQLException, ClassNotFoundException {
         Connect();
-        SQL_ManageRequest(GetRequestID(requestName), accepted);
+        int id = GetRequestID(requestName);
+        SQL_ManageRequest(id, accepted);
+        RemoveRequest(requestName);
         Disconnect();
     }
     private static void SQL_ManageRequest(int id, boolean accepted) throws SQLException {
-        String query = "UPDATE request SET accepted = "+ accepted +" WHERE id = " + id + ";";
+        String query = "UPDATE request SET accepted = '" + (accepted ? 1 : 0) + "' WHERE id = " + id + ";";
         Session.createStatement().executeUpdate(query);
     }
     //</editor-fold>

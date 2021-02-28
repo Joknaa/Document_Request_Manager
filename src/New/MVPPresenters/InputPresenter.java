@@ -13,7 +13,7 @@ public class InputPresenter {
             Check_PasswordMatch(password, passwordRepeat);
             SignUp(login, password);
             DisplayInformation("Welcome " + login + " ! You Signed Up Successfully !");
-            OnClick_SwapPanels(new MainPanel());
+            OnClick_SwapPanels(signUpPanel,new MainPanel());
         } catch (ClassNotFoundException | SQLException | EmptyInputFieldException |
                 PasswordMismatchException | UserAlreadyExistException | InputTooShortException e ) {
             DisplayError(e.getMessage());
@@ -38,7 +38,7 @@ public class InputPresenter {
             Check_NoEmptyFieldsExist(login, password);
             SignIn(login, password);
             DisplayInformation("Welcome " + login + " !");
-            OnClick_SwapPanels(new MainPanel());
+            OnClick_SwapPanels(loginPanel,new MainPanel());
         } catch (EmptyInputFieldException | SQLException | ClassNotFoundException |
                 UserNotFoundException | InputTooShortException e) {
             DisplayError(e.getMessage());

@@ -9,6 +9,7 @@ import static javax.swing.GroupLayout.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collections;
 
 public class MainPanel extends JPanel implements IPanel, ActionListener {
     //<editor-fold desc="Variables Declarations">">
@@ -302,7 +303,8 @@ public class MainPanel extends JPanel implements IPanel, ActionListener {
             acceptButton.setEnabled(true);
             declineButton.setEnabled(true);
             OnListSelection_UpdateDescription(selectedValue, descriptionTable);
-        } }
+        }
+    }
 
     @Override
     public JPanel GetPanel() { return this; }
@@ -318,5 +320,7 @@ public class MainPanel extends JPanel implements IPanel, ActionListener {
         }
         boolean accepted = event.getSource().equals(acceptButton);
         OnClick_ManageRequest(accepted, list, defaultListModel);
+        acceptButton.setEnabled(false);
+        declineButton.setEnabled(false);
     }
 }

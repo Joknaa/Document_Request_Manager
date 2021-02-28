@@ -37,7 +37,7 @@ public class StartingPanel extends JPanel implements IPanel, ActionListener {
         studentLogo.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent event) { OnHover_SwapIcons(studentLogo, "Resources/Stu_minim_127_HAZE.png"); }
             public void mouseExited(MouseEvent event) { OnHover_SwapIcons(studentLogo, "Resources/Stu_minim_127_BAYOUX.png"); }
-            public void mouseClicked(MouseEvent event) { OnClick_SwapPanels(studentPanel); }
+            public void mouseClicked(MouseEvent event) { OnClick_SwapPanels(startingPanel, studentPanel); }
         });
     }
     public void SetupStudentLogoPanelLayout() {
@@ -77,7 +77,7 @@ public class StartingPanel extends JPanel implements IPanel, ActionListener {
         teacherLogo.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent event) { OnHover_SwapIcons(teacherLogo, "Resources/Tch_minim_127_HAZE.png"); }
             public void mouseExited(MouseEvent event) { OnHover_SwapIcons(teacherLogo, "Resources/Tch_minim_127_WOODBLUE.png"); }
-            public void mouseClicked(MouseEvent event) { OnClick_SwapPanels(loginPanel); }
+            public void mouseClicked(MouseEvent event) { OnClick_SwapPanels(startingPanel, loginPanel); }
         });
     }
     private void SetupHeaderTextArea() {
@@ -132,7 +132,7 @@ public class StartingPanel extends JPanel implements IPanel, ActionListener {
     public void Deactivate(){ setVisible(false);}
     @Override
     public void actionPerformed(ActionEvent event) {
-        if (event.getSource().equals(studentLogo)) OnClick_SwapPanels(studentPanel);
-        else if (event.getSource().equals(teacherLogo)) OnClick_SwapPanels(loginPanel);
+        if (event.getSource().equals(studentLogo)) OnClick_SwapPanels(startingPanel, studentPanel);
+        else if (event.getSource().equals(teacherLogo)) OnClick_SwapPanels(startingPanel, loginPanel);
     }
 }
