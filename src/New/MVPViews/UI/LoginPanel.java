@@ -23,6 +23,8 @@ public class LoginPanel extends JPanel implements IPanel, ActionListener {
     private final JButton backButton = new JButton("Back");
     private final JPasswordField passwordField = new JPasswordField();
     private final JTextField loginField = new JTextField();
+    private final JComponent[] toBeReset = {loginField, passwordField};
+
     //</editor-fold>
 
     public LoginPanel() {
@@ -122,7 +124,9 @@ public class LoginPanel extends JPanel implements IPanel, ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         if      (event.getSource().equals(signInButton)) OnClick_SignIn(loginField, passwordField);
-        else if (event.getSource().equals(signUpButton)) OnClick_SwapPanels(loginPanel, signUpPanel);
-        else if (event.getSource().equals(backButton))   OnClick_SwapPanels(loginPanel, startingPanel);
+        else if (event.getSource().equals(signUpButton)) OnClick_SwapPanels(signUpPanel);
+        else if (event.getSource().equals(backButton))   OnClick_SwapPanels(startingPanel);
+
+        EmptyAllFields(toBeReset);
     }
 }

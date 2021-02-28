@@ -120,7 +120,6 @@ public class DataBasePresenter {
         return ItemDescription;
     }
     private static String[] SQL_GetRequestDescription(int requestID) throws SQLException {
-        //todo; query returns null; check the connection between the tables (joint) ..
         String query = "SELECT stu.CIN, stu.N_apogee, req.email, req.Doc_type" +
                 " FROM request req JOIN student stu ON req.N_apogee = stu.N_apogee" +
                 " WHERE req.id='" + requestID + "';";

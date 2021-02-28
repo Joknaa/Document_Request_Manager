@@ -27,6 +27,7 @@ public class StudentPanel extends JPanel implements IPanel, ActionListener {
     private final JTextField cinField = new JTextField();
     private final JTextField apogeField = new JTextField();
     private final JTextField emailField = new JTextField();
+    private final JComponent[] toBeReset = {cinField, apogeField, emailField, transcriptRadioB, certificateRadioB};
     //</editor-fold>
 
     public StudentPanel() {
@@ -170,10 +171,11 @@ public class StudentPanel extends JPanel implements IPanel, ActionListener {
     public void actionPerformed(ActionEvent event) {
         if (event.getSource().equals(submitButton)) {
             OnClick_SaveRequest(cinField, apogeField, emailField, transcriptRadioB, certificateRadioB);
+            EmptyAllFields(toBeReset);
         }
         else if (event.getSource().equals(backButton)){
-            OnClick_SwapPanels(studentPanel, startingPanel);
-
+            OnClick_SwapPanels(startingPanel);
+            EmptyAllFields(toBeReset);
         }
         else if (event.getSource().equals(transcriptRadioB)) {
             certificateRadioB.setSelected(false);

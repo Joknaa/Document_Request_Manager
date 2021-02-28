@@ -29,6 +29,8 @@ public class MainPanel extends JPanel implements IPanel, ActionListener {
     private final JButton declineButton = new JButton("Decline");
     private final JButton logOutButton = new JButton("Logout");
     private final DefaultListModel<String> defaultListModel = new DefaultListModel<>();
+    private final JComponent[] toBeReset = {acceptButton, declineButton};
+
     //</editor-fold>
 
     public MainPanel(){
@@ -320,7 +322,7 @@ public class MainPanel extends JPanel implements IPanel, ActionListener {
         }
         boolean accepted = event.getSource().equals(acceptButton);
         OnClick_ManageRequest(accepted, list, defaultListModel);
-        acceptButton.setEnabled(false);
-        declineButton.setEnabled(false);
+
+        EmptyAllFields(toBeReset);
     }
 }

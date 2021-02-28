@@ -26,6 +26,8 @@ public class SignupPanel extends JPanel implements IPanel, ActionListener {
     private final JPasswordField passwordField = new JPasswordField();
     private final JPasswordField passwordRepeatField = new JPasswordField();
     private final JTextField loginField = new JTextField();
+    private final JComponent[] toBeReset = {loginField, passwordField, passwordRepeatField};
+
     //</editor-fold>
 
     public SignupPanel() {
@@ -130,6 +132,9 @@ public class SignupPanel extends JPanel implements IPanel, ActionListener {
         if (event.getSource().equals(signUpButton))
             OnClick_SignUp(loginField, passwordField, passwordRepeatField);
         else if (event.getSource().equals(backButton))
-            OnClick_SwapPanels(signUpPanel, loginPanel);
+            OnClick_SwapPanels(loginPanel);
+
+        EmptyAllFields(toBeReset);
+
     }
 }

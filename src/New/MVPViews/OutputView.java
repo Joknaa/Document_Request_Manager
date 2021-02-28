@@ -31,7 +31,7 @@ public class OutputView {
     //<editor-fold desc="On-Event Actions">
     public static void OnClick_Logout(){
         LogOut();
-        OnClick_SwapPanels(mainPanel,startingPanel);
+        OnClick_SwapPanels(startingPanel);
     }
     public static void OnClick_SignUp(JTextField login, JTextField password, JTextField passwordRepeat) {
         String strLogin = login.getText().trim();
@@ -44,19 +44,9 @@ public class OutputView {
         String strPassword = String.valueOf(password.getPassword());
         Try_SignIn(strLogin, strPassword);
     }
-    public static void OnClick_SwapPanels(IPanel fromPanel, IPanel gotoPanel){
+    public static void OnClick_SwapPanels(IPanel gotoPanel){
         appFrame.GetCurrentPanel().setVisible(false);
         appFrame.SetCurrentPanel(gotoPanel);
-        ResetPanel(fromPanel.GetPanel());
-    }
-
-    private static void ResetPanel(JPanel fromPanel) {
-        for(Component comp : ((JPanel) fromPanel).getComponents()) {
-            if(comp instanceof JTextField)
-                ((JTextField) comp).setText("");
-            else if (comp instanceof JRadioButton)
-                ((JRadioButton) comp).setSelected(false);
-        }
     }
 
     public static void OnListSelection_UpdateDescription(String requestName, JTable descriptionTable) {
@@ -188,9 +178,14 @@ public class OutputView {
         textArea.setAutoscrolls(false);
         textArea.setFocusable(false);
     }
-    public static void EmptyAllFields(JTextField... textFields) {
-        for (JTextField field : textFields) {
-            field.setText("");
+    public static void EmptyAllFields(JComponent... components) {
+        for(JComponent comp : components) {
+            if(comp instanceof JTextField)
+                ((JTextField) comp).setText("");
+            else if (comp instanceof JRadioButton)
+                ((JRadioButton) comp).setSelected(false);
+            else if (comp instanceof JButton)
+                comp.setEnabled(false);
         }
     }
     //</editor-fold>
