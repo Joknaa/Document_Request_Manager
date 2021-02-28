@@ -55,7 +55,7 @@ public class StudentPanel extends JPanel implements IPanel, ActionListener {
         SetupInputFields(cinField, apogeField, emailField);
         SetupSeparators(cinSeparator, apogeSeparator, emailSeparator);
         SetupRadioButtons(transcriptRadioB, certificateRadioB);
-        SetupSubmitButton(submitButton, this, true,"Click to creat an account");
+        SetupSubmitButton(submitButton, this, false,"Click to creat an account");
         SetupSubmitButton(backButton, this, true, "Back to starting page");
         SetupInputPanelLayout();
     }
@@ -169,12 +169,19 @@ public class StudentPanel extends JPanel implements IPanel, ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         if (event.getSource().equals(submitButton))
-            System.out.println("form submitted");
-        else if (event.getSource().equals(backButton))
+            OnClick_SaveRequest(cinField, apogeField, emailField, transcriptRadioB, certificateRadioB);
+        else if (event.getSource().equals(backButton)){
+            //todo; add a function that resets the panel before exiting it
             OnClick_SwapPanels(startingPanel);
-        else if (event.getSource().equals(transcriptRadioB))
+
+        }
+        else if (event.getSource().equals(transcriptRadioB)) {
             certificateRadioB.setSelected(false);
-        else if (event.getSource().equals(certificateRadioB))
+            submitButton.setEnabled(true);
+        }
+        else if (event.getSource().equals(certificateRadioB)){
             transcriptRadioB.setSelected(false);
+            submitButton.setEnabled(true);
+        }
     }
 }

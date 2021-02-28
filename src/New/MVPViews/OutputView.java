@@ -65,6 +65,13 @@ public class OutputView {
         label.setIcon(new ImageIcon(newImageURL));
 
     }
+    public static void OnClick_SaveRequest(JTextField cinField, JTextField apogeField, JTextField emailField,
+                                           JRadioButton transcriptRB, JRadioButton CertificateRB){
+        String cin = cinField.getText().trim();
+        String apoge = apogeField.getText().trim();
+        String email = emailField.getText().trim();
+        Try_SaveRequest(cin, apoge, email, transcriptRB.isSelected() ? "Transcript" : "Certificate");
+    }
     //</editor-fold>
 
     //<editor-fold desc="Setting up Common JFrame Components">

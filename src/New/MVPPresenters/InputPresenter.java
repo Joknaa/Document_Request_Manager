@@ -9,6 +9,7 @@ public class InputPresenter {
     public static void Try_SignUp(String login, String password, String passwordRepeat) {
         try {
             Check_NoEmptyFieldsExist(login, password, passwordRepeat);
+            Check_InputTooShort(login, password, passwordRepeat);
             Check_PasswordMatch(password, passwordRepeat);
             SignUp(login, password);
             DisplayInformation("Welcome " + login + " ! You Signed Up Successfully !");
@@ -21,6 +22,10 @@ public class InputPresenter {
     public static void Check_NoEmptyFieldsExist(String... inputFields) throws EmptyInputFieldException, InputTooShortException {
         for (String field : inputFields ) {
             if (field.isEmpty()) throw new EmptyInputFieldException("Pls fill all the fields");
+        }
+    }
+    private static void Check_InputTooShort(String... inputFields) throws InputTooShortException {
+        for (String field : inputFields ) {
             if (field.length() <= 3) throw new InputTooShortException("Login and Password should be at least 3 characters");
         }
     }
@@ -36,6 +41,15 @@ public class InputPresenter {
             OnClick_SwapPanels(new MainPanel());
         } catch (EmptyInputFieldException | SQLException | ClassNotFoundException |
                 UserNotFoundException | InputTooShortException e) {
+            DisplayError(e.getMessage());
+        }
+    }
+    public static void Try_SaveRequest(String cin, String apoge, String email, String docType) {
+        try {
+            Check_NoEmptyFieldsExist(cin, apoge, email);
+            SaveRequest(cin, apoge, email, docType);
+            DisplayInformation("Request submitted !");
+        } catch (EmptyInputFieldException | SQLException | ClassNotFoundException | InputTooShortException e) {
             DisplayError(e.getMessage());
         }
     }

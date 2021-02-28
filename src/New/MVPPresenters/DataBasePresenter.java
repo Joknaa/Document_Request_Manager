@@ -2,9 +2,8 @@ package New.MVPPresenters;
 
 import New.MVPModels.DataBaseModel;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+
 import static New.MVPPresenters.RequestPresenter.*;
 
 public class DataBasePresenter {
@@ -13,6 +12,39 @@ public class DataBasePresenter {
     private static final String password = DataBaseModel.GetPassword();
     private static Connection Session = null;
 
+    //<editor-fold desc="SignIn / SignUp">
+    public static void SignUp(String login, String password) throws SQLException, ClassNotFoundException, UserAlreadyExistException {
+        Connect();
+        SQL_Check_LoginAvailable(login);
+        SQL_SignUp(login, password);
+        SignIn(login);
+        Disconnect();
+    }
+    private static void SQL_Check_LoginAvailable(String login) throws SQLException, UserAlreadyExistException {
+        String query = "SELECT * FROM admin WHERE username='" + login + "';";
+        ResultSet rt = Session.createStatement().executeQuery(query);
+        if (rt.next()) throw new UserAlreadyExistException("login already exist");
+    }
+    private static void SQL_SignUp(String login, String password) throws SQLException {
+        String query = "INSERT INTO admin(username, password) VALUES ('" + login + "', '" + password + "');";
+        Session.createStatement().executeUpdate(query);
+    }
+
+    public static void SignIn(String login, String password) throws SQLException, ClassNotFoundException, UserNotFoundException {
+        Connect();
+        SQL_Check_UserExist(login, password);
+        SignIn(login);
+        Disconnect();
+    }
+    private static void SQL_Check_UserExist(String login, String password) throws SQLException, UserNotFoundException {
+        String query = "SELECT * FROM admin WHERE Username='" + login + "' AND Password='" + password + "';";
+        ResultSet rt = Session.createStatement().executeQuery(query);
+        if (!rt.isBeforeFirst()){
+            throw new UserNotFoundException("Login or Password Incorrect");
+        }
+    }
+    private static void SignIn(String login) { UserPresenter.Login(login); }
+    //</editor-fold>
     //<editor-fold desc="Loading the 'Request's list !!">
     public static void SetupDataBaseConnection() throws SQLException, ClassNotFoundException {
         Connect();
@@ -49,39 +81,24 @@ public class DataBasePresenter {
         }
     }
     //</editor-fold">
-    //<editor-fold desc="SignIn / SignUp">
-    public static void SignUp(String login, String password) throws SQLException, ClassNotFoundException, UserAlreadyExistException {
-            Connect();
-            SQL_Check_LoginAvailable(login);
-            SQL_SignUp(login, password);
-            SignIn(login);
-            Disconnect();
+    public static void SaveRequest(String cin, String apoge, String email, String docType) throws SQLException, ClassNotFoundException {
+        Connect();
+        System.out.println("test");
+        AddRequest(SQL_AddRequestAndGetID(apoge, email, docType));
+        System.out.println("test");
+
+        Disconnect();
     }
-    private static void SQL_Check_LoginAvailable(String login) throws SQLException, UserAlreadyExistException {
-        String query = "SELECT * FROM admin WHERE username='" + login + "';";
-        ResultSet rt = Session.createStatement().executeQuery(query);
-        if (rt.next()) throw new UserAlreadyExistException("login already exist");
-    }
-    private static void SQL_SignUp(String login, String password) throws SQLException {
-        String query = "INSERT INTO admin(username, password) VALUES ('" + login + "', '" + password + "');";
-        Session.createStatement().executeUpdate(query);
+    private static int SQL_AddRequestAndGetID(String apoge, String email, String docType) throws SQLException {
+        String query = "INSERT INTO request(N_apogee, email, Doc_type, accepted) " +
+                "VALUES ('" + apoge + "', '" + email + "', '" + docType + "', 0);";
+        PreparedStatement prepStmt = Session.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+        prepStmt.execute();
+        ResultSet dataSet = prepStmt.getGeneratedKeys();
+        if (dataSet.next()) return dataSet.getInt(1);
+        throw new SQLException("Request couldn't be submitted, try again.");
     }
 
-    public static void SignIn(String login, String password) throws SQLException, ClassNotFoundException, UserNotFoundException {
-            Connect();
-            SQL_Check_UserExist(login, password);
-            SignIn(login);
-            Disconnect();
-    }
-    private static void SQL_Check_UserExist(String login, String password) throws SQLException, UserNotFoundException {
-        String query = "SELECT * FROM admin WHERE Username='" + login + "' AND Password='" + password + "';";
-        ResultSet rt = Session.createStatement().executeQuery(query);
-        if (!rt.isBeforeFirst()){
-            throw new UserNotFoundException("Login or Password Incorrect");
-        }
-    }
-    private static void SignIn(String login) { UserPresenter.Login(login); }
-    //</editor-fold>
     //<editor-fold desc="Getting 'Request' data">
     public static String[] GetRequestDescription(String requestName) throws SQLException, ClassNotFoundException {
         Connect();
@@ -92,7 +109,7 @@ public class DataBasePresenter {
     }
     private static String[] SQL_GetRequestDescription(int requestID) throws SQLException {
         //todo; query returns null; check the connection between the tables (joint) ..
-        String query = "SELECT stu.CIN, stu.N_apogee, stu.email, req.Doc_type" +
+        String query = "SELECT stu.CIN, stu.N_apogee, req.email, req.Doc_type" +
                 " FROM request req JOIN student stu ON req.N_apogee = stu.N_apogee" +
                 " WHERE req.id='" + requestID + "';";
         ResultSet dataSet = Session.createStatement().executeQuery(query);
