@@ -14,7 +14,7 @@ public class StudentPanel extends JPanel implements IPanel, ActionListener {
     private final JSeparator cinSeparator = new JSeparator();
     private final JSeparator apogeSeparator = new JSeparator();
     private final JSeparator emailSeparator = new JSeparator();
-    private final JLabel logoIconLabel = new JLabel(new ImageIcon("Resources/library_120px.png"));
+    private final JLabel logoIconLabel = new JLabel(new ImageIcon("Resources/Images/library_120px.png"));
     private final JLabel logoTextLabel = new JLabel("Request Manager");
     private final JLabel cinLabel = new JLabel("CIN");
     private final JLabel apogeLabel = new JLabel("N°Apoge");

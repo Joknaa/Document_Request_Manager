@@ -9,7 +9,6 @@ import static javax.swing.GroupLayout.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Collections;
 
 public class MainPanel extends JPanel implements IPanel, ActionListener {
     //<editor-fold desc="Variables Declarations">">
@@ -19,7 +18,7 @@ public class MainPanel extends JPanel implements IPanel, ActionListener {
     private final JPanel listPanel = new JPanel();
     private final JPanel buttonsPanel = new JPanel();
     private final JList<String> list = new JList<>();
-    private final JLabel headerLogo = new JLabel(new ImageIcon("Resources/library_100px.png"));
+    private final JLabel headerLogo = new JLabel(new ImageIcon("Resources/Images/library_100px.png"));
     private final JLabel greetingLabel = new JLabel("Greeting !");
     private final JScrollPane scrollPanList = new JScrollPane();
     private final JTable descriptionTable = new JTable();
@@ -30,7 +29,6 @@ public class MainPanel extends JPanel implements IPanel, ActionListener {
     private final JButton logOutButton = new JButton("Logout");
     private final DefaultListModel<String> defaultListModel = new DefaultListModel<>();
     private final JComponent[] toBeReset = {acceptButton, declineButton};
-
     //</editor-fold>
 
     public MainPanel(){

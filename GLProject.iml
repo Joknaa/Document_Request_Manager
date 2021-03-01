@@ -10,5 +10,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="mysql-connector-java-5.1.49" level="project" />
+    <orderEntry type="library" name="aspose.pdf-21.2" level="project" />
   </component>
 </module>

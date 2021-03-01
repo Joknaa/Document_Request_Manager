@@ -13,9 +13,9 @@ public class StartingPanel extends JPanel implements IPanel, ActionListener {
     //<editor-fold desc="Variables Declarations">
     private final JPanel studentLogoPanel = new JPanel();
     private final JPanel teacherLogoPanel = new JPanel();
-    private final JLabel studentLogo = new JLabel(new ImageIcon("Resources/Stu_minim_127_BAYOUX.png"));
-    private final JLabel headerLogo = new JLabel(new ImageIcon("Resources/library_120px.png"));
-    private final JLabel teacherLogo = new JLabel(new ImageIcon("Resources/Tch_minim_127_WOODBLUE.png"));
+    private final JLabel studentLogo = new JLabel(new ImageIcon("Resources/Images/Stu_minim_127_BAYOUX.png"));
+    private final JLabel headerLogo = new JLabel(new ImageIcon("Resources/Images/library_120px.png"));
+    private final JLabel teacherLogo = new JLabel(new ImageIcon("Resources/Images/Tch_minim_127_WOODBLUE.png"));
     private final JTextArea headerTextArea = new JTextArea("Request\nManager");
     private final JButton closeButton = new JButton("X");
     //</editor-fold>
@@ -35,8 +35,8 @@ public class StartingPanel extends JPanel implements IPanel, ActionListener {
     private void SetupStudentLogo() {
         studentLogo.setToolTipText("Click to access the Student Space");
         studentLogo.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent event) { OnHover_SwapIcons(studentLogo, "Resources/Stu_minim_127_HAZE.png"); }
-            public void mouseExited(MouseEvent event) { OnHover_SwapIcons(studentLogo, "Resources/Stu_minim_127_BAYOUX.png"); }
+            public void mouseEntered(MouseEvent event) { OnHover_SwapIcons(studentLogo, "Resources/Images/Stu_minim_127_HAZE.png"); }
+            public void mouseExited(MouseEvent event) { OnHover_SwapIcons(studentLogo, "Resources/Images/Stu_minim_127_BAYOUX.png"); }
             public void mouseClicked(MouseEvent event) { OnClick_SwapPanels(studentPanel); }
         });
     }
@@ -75,8 +75,8 @@ public class StartingPanel extends JPanel implements IPanel, ActionListener {
     private void setupTeacherLogo() {
         teacherLogo.setToolTipText("Click to access the Admin Space");
         teacherLogo.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent event) { OnHover_SwapIcons(teacherLogo, "Resources/Tch_minim_127_HAZE.png"); }
-            public void mouseExited(MouseEvent event) { OnHover_SwapIcons(teacherLogo, "Resources/Tch_minim_127_WOODBLUE.png"); }
+            public void mouseEntered(MouseEvent event) { OnHover_SwapIcons(teacherLogo, "Resources/Images/Tch_minim_127_HAZE.png"); }
+            public void mouseExited(MouseEvent event) { OnHover_SwapIcons(teacherLogo, "Resources/Images/Tch_minim_127_WOODBLUE.png"); }
             public void mouseClicked(MouseEvent event) { OnClick_SwapPanels(loginPanel); }
         });
     }

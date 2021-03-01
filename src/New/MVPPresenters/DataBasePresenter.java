@@ -121,8 +121,8 @@ public class DataBasePresenter {
     }
     private static String[] SQL_GetRequestDescription(int requestID) throws SQLException {
         String query = "SELECT stu.CIN, stu.N_apogee, req.email, req.Doc_type" +
-                " FROM request req JOIN student stu ON req.N_apogee = stu.N_apogee" +
-                " WHERE req.id='" + requestID + "';";
+                " FROM request req, student stu WHERE req.N_apogee = stu.N_apogee" +
+                " AND req.id='" + requestID + "';";
         ResultSet dataSet = Session.createStatement().executeQuery(query);
         return ConvertDataSetToStringArray(dataSet);
     }
