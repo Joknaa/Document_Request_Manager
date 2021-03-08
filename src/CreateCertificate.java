@@ -1,12 +1,11 @@
 import com.aspose.pdf.Document;
 import com.aspose.pdf.HtmlLoadOptions;
-
 import java.io.*;
 import java.nio.file.*;
 import java.util.Scanner;
 
-public class WritingIntoFiles {
-    static Path oldPath = Paths.get("Resources/Documents/Certificate/Certificate.html");
+public class CreateCertificate {
+    static Path oldPath = Paths.get("Resources/Documents/Certificate/CertificateTemplate.html");
     static final File oldFile = oldPath.toFile();
 
     static Path newPath = Paths.get("Resources/Documents/Certificate/CertificateModified.html");
@@ -18,8 +17,12 @@ public class WritingIntoFiles {
     }
 
     private static void ExportToPDF() {
-        Document PDFFile = new Document(String.valueOf(newPath), new HtmlLoadOptions());
-        PDFFile.save("Resources/Documents/Certificate/CertificateModified.pdf");
+        Document PDFFile = new Document(String.valueOf(oldPath), new HtmlLoadOptions());
+        PDFFile.save("Resources/Documents/Certificate/Certificate.pdf");
+
+        Document PDFFileNew = new Document(String.valueOf(newPath), new HtmlLoadOptions());
+        PDFFileNew.save("Resources/Documents/Certificate/CertificateModified.pdf");
+
     }
 
     private static void WriteChangesIntoFile() {
@@ -28,7 +31,7 @@ public class WritingIntoFiles {
 
         try{
             Scanner fileScanner = new Scanner(oldFile);
-            FileWriter writer = new FileWriter(newFile, true);
+            FileWriter writer = new FileWriter(newFile);
             int i = 0;
             String currentLine;
 
