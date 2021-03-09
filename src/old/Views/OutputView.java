@@ -17,7 +17,7 @@ public class OutputView {
         System.out.println("#####################[ StudentSpaceMenu ]####################");
         System.out.println("|| ----------------> 1 : Fill The Form    <--------------- ||");
         System.out.println("|| ----------------> 2 : Display Requests <--------------- ||");
-        System.out.println("|| ----------------> 0 : New.Main Menu        <--------------- ||");
+        System.out.println("|| ----------------> 0 : Main Menu        <--------------- ||");
         System.out.println("#############################################################");
         System.out.print("#-> Option : ");
     }
@@ -28,7 +28,7 @@ public class OutputView {
         System.out.println("|| ----------------> 1 : Select a Request <--------------- ||");
         System.out.println("|| ----------------> 2 : Display Requests <--------------- ||");
         System.out.println("|| ----------------> 3 : Logout           <--------------- ||");
-        System.out.println("|| ----------------> 0 : New.Main Menu        <--------------- ||");
+        System.out.println("|| ----------------> 0 : Main Menu        <--------------- ||");
         System.out.println("#############################################################");
         System.out.print("#-> Option : ");
     }
@@ -38,7 +38,7 @@ public class OutputView {
         System.out.println("#########[ RequestConfirmationMenu ]#########");
         System.out.println("|| -----------> 1 : ACCEPT    <----------- ||");
         System.out.println("|| -----------> 2 : DECLINE   <----------- ||");
-        System.out.println("|| -----------> 0 : New.Main Menu <----------- ||");
+        System.out.println("|| -----------> 0 : Main Menu <----------- ||");
         System.out.println("#############################################");
         System.out.print("#-> Option : ");
     }
