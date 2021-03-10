@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="aspose.pdf-21.2">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/Resources/aspose.pdf-21.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../aspose.pdf-21.2.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
