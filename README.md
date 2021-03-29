@@ -10,7 +10,7 @@ At the start, the user has to decide whether to use the program as a Student or 
 The student can fill a form using this program, with his ID, Email, and the wanted document.
 ![Student Space](Resources/GUI/2StudentMenu%20%20(1).png)
 
-#### Student Space:
+#### Admin Space:
 the school staff can login as an admin;
 ![Student Space](Resources/GUI/3LoginMenu%20%20(1).png)
 or create an admin account.
